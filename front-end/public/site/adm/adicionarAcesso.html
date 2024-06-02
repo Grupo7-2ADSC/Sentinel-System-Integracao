@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style-cadastros.css">
+    <link rel="icon" href="../site/public/assets/imagens/iconNavegador.png" type="image/x-icon">
+    <title>Adicionar novo Acesso</title>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+          <div class="logo"> 
+            <a href="./empresas.html"><img class="imagem-logo" src="../site/public/assets/imagens/logoEmpresa.png" alt="logo empresa"></a>
+          </div>
+      
+          <div class="navbar">
+            <ul>
+              <li><a href="./empresas.html">Empresas</a></li>
+              <li><a href="usuarios.html">Usuários</a></li>
+              <li><a href="./tiposacesso.html">Acessos</a></li>
+            </ul>
+          </div>
+      
+          <div id="user-profile" class="user-profile">
+            <img class="img-user" src="./assets/userBranco.png" alt="">
+            <!-- Card sair do usuário -->
+            <div id="user-card" class="user-card">
+                <div class="user-card-content">
+                  <p>Gustavo | ADM </p> <!-- Aqui sera puxado do banco -->
+                  
+                  <button id="logout-btn"><img class="icon-sair" src="./assets/exitBranco.png" alt="Icone de sair">Sair</button>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+
+        <div class="container-cadastro" style="margin-top: 100px;">
+
+            <div class="alerta_erro">
+              <div class="card_erro" id="cardErro">
+                <span id="mensagem_erro"></span>
+              </div>
+            </div>
+            <div class="container-form">
+              <div class="cardCadastro card-cadastro">
+                <h2>Adicionar novo Acesso</h2>
+                <p>Informe o nome do novo tipo de acesso</p>
+                <div class="formulario">
+                  <div class="campo">
+                  </div>
+                  <div class="campo">
+                    <span>Nome</span>
+                    <input id="nome_input" type="text" placeholder="Nome do acesso" />
+                  </div>
+            
+            
+                  <button class="botaoCadastro" onclick="">Adicionar</button>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+          </div>
+    
+</body>
+</html>
+<script>
+ document.addEventListener('DOMContentLoaded', function() {
+  const userProfile = document.getElementById('user-profile');
+  const userCard = document.getElementById('user-card');
+  const logoutBtn = document.getElementById('logout-btn');
+
+  userProfile.addEventListener('click', function() {
+    userCard.classList.toggle('active');
+  });
+
+  document.addEventListener('click', function(event) {
+    if (!userProfile.contains(event.target) && !userCard.contains(event.target)) {
+      userCard.classList.remove('active');
+    }
+  });
+
+  logoutBtn.addEventListener('click', function() {
+    window.location.href = '../site/public/index.html';
+  });
+});
+</script>

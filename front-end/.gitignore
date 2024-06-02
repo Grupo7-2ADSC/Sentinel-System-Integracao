@@ -1,0 +1,12 @@
+# A linha abaixo determina que os arquivos .env não serão enviados ao repositório remoto
+.env
+.env.dev
+
+# A linha abaixo determina que o diretório node_modules não será enviado ao repositório remoto
+node_modules
+package-lock.json
+
+# Caso você renomeie seu diretório, altere também nas linhas abaixo:
+front-end/node_modules
+front-end/package-lock.json
+.github

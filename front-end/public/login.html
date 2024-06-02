@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | SSS</title>
+  <link rel="stylesheet" href="./css/logon.css">
+  <link rel="stylesheet" href="./css/estilo-logon.css">
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="shortcut icon" href="./assets/imagens/iconNavegador.png" type="image/x-icon">
+
+</head>
+
+<body>
+  <div class="header">
+
+    <div class="container">
+
+      <div class="logo">
+        <a href="./index.html"><img class="imagem-logo" src="assets/imagens/logoEmpresa.png" alt="Logo"></a>
+      </div>
+
+      <div class="navbar">
+        <ul>
+          <li><a href="./index.html#conteudo-principal">Home</a></li>
+          <li><a href="./login.html">Login</a></li>
+          <li><a href="#quem-somos">Quem Somos</a></li>
+        </ul>
+      </div>
+
+      <div id="menu">
+        <div id="menu-bar" onclick="menuOnClick()">
+          <div id="bar1" class="bar"></div>
+          <div id="bar2" class="bar"></div>
+          <div id="bar3" class="bar"></div>
+        </div>
+        <nav class="nav" id="nav">
+          <ul>
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="./login.html">Login</a></li>
+            <li><a href="./index.html#quem-somos">Quem somos</a></li>
+            <li><a href="./faleConosco.html">Contato Comercial</a></li>
+
+          </ul>
+        </nav>
+      </div>
+
+      <div class="menu-bg" id="menu-bg"></div>
+
+    </div>
+
+    <!-- <button class="contact-button" onclick="solicitarCotacao()">Contato Comercial</button> -->
+
+  </div>
+
+  <div class="welcome-message" id="welcomeMessage">Bem-vindo ao sistema!</div>
+
+  <link rel="stylesheet" href="/front-end/intern/">
+  <div class="login">
+    <div class="container">
+      <div class="card-branco-login card-login">
+        <h2>Login</h2>
+
+        <div class="formulario">
+          <div class="campo">
+            <span>E-mail</span>
+            <input id="email_input" type="text" placeholder="Login">
+          </div>
+          <div class="campo">
+            <span>Senha</span>
+            <input id="senha_input" type="password" placeholder="******">
+          </div>
+          <p id="erroCamposVazios" class="erroAutenticacao">Preencha os campos para autenticar</p>
+          <p id="dadosInvalidos" class="erroAutenticacao">E-mail ou senha inválidos</p>
+          <p class="naoTenhoConta"> <a class="naoTenhoConta" href="./esqueceuSenha.html">Esqueci minha senha</a></p>
+          <button class="botao" onclick="entrar()">Entrar</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <img src="./site/adm/empresas.html" alt="">
+
+  <div id="div_erros_login"></div>
+  </div>
+  </div>
+
+</body>
+
+</html>
+<script>
+
+  function alertwelcome() {
+    welcomeMessage.style.display = 'block';
+    setTimeout(function () {
+      welcomeMessage.style.display = 'none';
+    }, 3000);
+  }
+
+  function entrar() {
+
+    var emailVar = email_input.value;
+    var senhaVar = senha_input.value;
+
+    if (emailVar == "" || senhaVar == "") {
+      erroCamposVazios.style.display = "block"
+      dadosInvalidos.style.display = "none"
+
+      return false;
+
+    } else {
+
+      erroCamposVazios.style.display = "none"
+    }
+
+    console.log("FORM LOGIN: ", emailVar);
+    console.log("FORM SENHA: ", senhaVar);
+
+    fetch("/usuarios/autenticar", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        emailServer: emailVar,
+        senhaServer: senhaVar
+      })
+    }).then(function (resposta) {
+      console.log("ESTOU NO THEN DO entrar()!")
+
+      if (resposta.ok) {
+        console.log(resposta);
+
+        resposta.json().then(json => {
+          console.log(json);
+          console.log(JSON.stringify(json));
+          sessionStorage.ID_USUARIO = json.id_usuario;
+          sessionStorage.EMAIL_USUARIO = json.email;
+          sessionStorage.NOME_USUARIO = json.nome;
+          sessionStorage.TIPO_ACESSO = json.tipoAcesso;
+          sessionStorage.ID_EMPRESA = json.empresaId;
+          // Verificando se a propriedade "servidores" existe em json e se possui algum valor
+          // Se não existir ou for um array vazio, definimos sessionStorage.SERVIDORES como uma string vazia
+          sessionStorage.SERVIDORES = json.servidores && json.servidores.length > 0 ? JSON.stringify(json.servidores) : '';
+
+          console.log(resposta);
+          redirecionarUsuario(json.tipoAcesso);
+
+        });
+
+      } else {
+        console.log("Houve um erro ao tentar realizar o login!");
+
+        dadosInvalidos.style.display = "block"
+
+        resposta.text().then(texto => {
+          console.error(texto);
+        });
+      }
+
+    }).catch(function (erro) {
+      console.log(erro);
+    })
+
+    return false;
+  }
+
+  function redirecionarUsuario(tipoDeAcesso) {
+    console.log("Acessei o redirecionar por tipo de usuario, tipo de acesso: " + tipoDeAcesso);
+
+    if (tipoDeAcesso === 'Administrador') {
+      alertwelcome();
+      setTimeout(function () {
+        window.location.href = './site/adm/empresas.html';
+      }, 3050);
+    } else if (tipoDeAcesso === 'Representante' || tipoDeAcesso === 'Gestor de Infra') {
+      window.location.href = './site/intern/painel.html';
+    } else if (tipoDeAcesso === 'Usuario padrão') {
+      window.location.href = '#';
+    } else {
+      console.error('Tipo de acesso inválido.');
+    }
+  }
+
+  /*function solicitarCotacao() {
+    window.location.href = "./faleConosco.html";
+  }*/
+
+  function menuOnClick() {
+    document.getElementById("menu-bar").classList.toggle("change");
+    document.getElementById("nav").classList.toggle("change");
+    document.getElementById("menu-bg").classList.toggle("change-bg");
+  }
+
+</script>

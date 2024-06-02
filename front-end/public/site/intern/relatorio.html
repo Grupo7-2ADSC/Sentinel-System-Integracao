@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/relatorio.css">
+    <title>Relatorio</title>
+</head>
+
+<body>
+
+    <div class="sidebar">
+        <div class="divImg">
+
+            <img id="imagemUser" src="./assets/logo_roxa.png" alt="">
+        </div>
+
+        <div class="NomeUsuario">Olá, <span id="nomeUser" class="NomeUsuario">Marcio</span></div>
+
+        <ul>
+            <li><a class="button" href="./avisos.html"><img class="icone-menu" src="./assets/notification.png" alt="">Avisos ‎ ‎ ‎ </a></li>
+            <li><a class="button" href="./painel.html"><img class="icone-menu" src="./assets/web-analysis.png" alt=""> Painel ‎ ‎ ‎</a></li>
+            <li><a class="buttonSelecionado"><img class="icone-menu" src="./assets/report.png" alt="">Relátorio</a></li>
+            <li><a class="button" href="./usuarios.html"><img class="icone-menu" src="./assets/group.png" alt=""> Usuários </a></li>
+            <br>
+            <br>
+        </ul>
+        <div class="exitContainer"><button class="exitButton" onclick="logout()"><span class='text'>Sair</span><span
+                    class="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path
+                            d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z" />
+                    </svg></span></button></div>
+
+    </div>
+
+    <main class="main-content">
+        <h1 class="titulo">Relatórios</h1>
+
+        <div class="container-filtroPesquisa">
+            <div class="tittle-filtro">
+                <img src="./assets/filter.png" alt="">
+                <h1>Filtros de Pesquisa</h1>
+            </div>
+            <div class="container-selecaoData">
+                <select name="" id="seletor-servidor">
+                    <option value="server_teste">Servidor de Teste</option>
+                </select>
+
+                <div class="campo-dataIN-END"><span>De: </span><input type="date" id="dataInicio"></div>
+                <div class="campo-dataIN-END"><span>Até:</span> <input type="date" id="dataFim"></div>
+            </div>
+            <div class="div-buttonGerar">
+                <button id="gerarRelatorioButton">Gerar Relatório</button>
+            </div>
+        </div>
+
+        <div class="container-resultadoPesquisa">
+            <div class="tittle-resultado">
+                <img src="./assets/list.png" alt="">
+                <h1>Resultado da Pesquisa</h1>
+            </div>
+            <div class="container-cardsExibir">
+
+                <div class="card-exibição">
+                    <div class="title-card">
+                        <h1>Servidor</h1>
+                    </div>
+
+                    <div class="content-card-servidor">
+                        <p>Servidor de Teste</p>
+                    </div>
+
+                </div>
+                <div class="card-exibição">
+                    <div class="title-card">
+                        <h1>CPU</h1>
+                    </div>
+                    <div class="content-card">
+                        <div class="card-exibição-conteudo">
+                            <p>Picos de Utilização: <span>10</span></p> 
+                            <p> Possíveis problemas de sobrecarga identificados .</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-exibição">
+                    <div class="title-card">
+                        <h1>MEMORIA RAM</h1>
+                    </div>
+                    <div class="content-card">
+                        <div class="card-exibição-conteudo">
+                            <p>Picos de Utilização: <span>10</span></p> 
+                            <p> Nenhum problema encontrado .</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-exibição">
+                    <div class="title-card">
+                        <h1>Discos</h1>
+                    </div>
+                    <div class="content-card">
+                        <div class="card-exibição-conteudo-disco">
+                            <p class="bold"> Disco 0 (<span>C:</span>)</p>
+                            <p class="bold">Espaço Dísponivel: <span> 50</span> GiB</p>
+                            <p>Capacidade abaixo do limite recomendado.</p>
+                        </div>
+                    </div>
+                </div>
+    
+            </div>
+           
+        </div>
+    </main>
+
+</body>
+
+</html>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    const dataInicio = document.getElementById('dataInicio');
+    const dataFim = document.getElementById('dataFim');
+    const gerarRelatorioButton = document.getElementById('gerarRelatorioButton');
+
+    // Função para obter a data de hoje no formato YYYY-MM-DD
+    function getTodayDate() {
+        const today = new Date();
+        const yyyy = today.getFullYear();
+        const mm = String(today.getMonth() + 1).padStart(2, '0'); // Janeiro é 0!
+        const dd = String(today.getDate()).padStart(2, '0');
+        return `${yyyy}-${mm}-${dd}`;
+    }
+
+    // Definir o valor máximo do campo dataFim para a data de hoje
+    dataFim.max = getTodayDate();
+
+    function validateDates() {
+        const startDate = new Date(dataInicio.value);
+        const endDate = new Date(dataFim.value);
+
+        if (startDate > endDate) {
+            alert('A data de início não pode ser posterior à data de fim.');
+            return false;
+        }
+        return true;
+    }
+
+    gerarRelatorioButton.addEventListener('click', function (event) {
+        if (!validateDates()) {
+            event.preventDefault();
+        }
+    });
+
+    dataInicio.addEventListener('change', validateDates);
+    dataFim.addEventListener('change', validateDates);
+});
+</script>

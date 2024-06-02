@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro | SSS</title>
+  <link rel="stylesheet" href="./css/logon.css">
+  <link rel="stylesheet" href="./css/estilo-logon.css">
+  <link rel="shortcut icon" href="./assets/imagens/iconNavegador.png" type="image/x-icon">
+</head>
+<body>
+
+    <div class="header">
+
+        <div class="container">
+
+          <div class="logo"> 
+            <a href="./index.html"><img  class="imagem-logo" src="assets/imagens/logoEmpresa.png" alt=""></a>
+          </div>
+
+            <div class="navbar">
+              <li><a href="./index.html">Home</a></li>
+              <li><a href="./login.html">Login</a></li>
+              <li><a href="#">Cadastro</a></li>
+              <li><a href="index.html#quem-somos">Quem Somos</a></li>
+            </div>
+
+            <button class="contact-button" onclick="solicitarCotacao()">Contato Comercial</button>
+
+        </div>
+
+    </div>
+
+
+    <div class="login">
+        <div class="alerta_erro">
+          <div class="card_erro" id="cardErro">
+            <span id="mensagem_erro"></span>
+          </div>
+        </div>
+        <div class="container">
+          <div class="cardCadastro card-cadastro">
+            <h2>Cadastro</h2>
+            <p>Ja possui uma conta? <a class="tenhoConta " href="./login.html">faça login</a></p>
+            <div class="formulario">
+              <div class="campo">
+              </div>
+              <div class="campo">
+                <span>CNPJ </span>
+                <input id="cpf_input" type="text" placeholder="CNPJ" />
+              </div>
+              <div class="campo">
+                <span>Nome da empresa </span>
+                <input id="nome_input" type="text" placeholder="Nome da empresa" />
+              </div>
+              <div class="campo">
+                 <span>E-mail</span>
+                <input id="email_input" type="text" placeholder="E-mail" />
+              </div>
+              <div class="campo">
+                <span>Digite sua senha </span>
+                <input id="senha_input" type="password" placeholder="Digite sua senha" />
+              </div>
+              <div class="campo">
+                <span>Confirme sua senha</span>
+                <input id="confirmacao_senha_input" type="password" placeholder="Confirme sua senha" />
+              </div>
+              <button class="botaoCadastro" onclick="cadastrar()">Cadastrar</button>
+            </div class="tenhoConta2">
+            
+          </div>
+        </div>
+      </div>
+      </div>
+      
+
+</body>
+</html>
+<script>
+  function cadastrar() {
+    window.location.href = "./login.html";
+}
+
+function solicitarCotacao() {
+    window.location.href = "./faleConosco.html";
+}
+</script>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/avisos.css">
+    <title>Avisos</title>
+</head>
+<body>
+    
+    <div class="sidebar">
+        <div class="divImg">
+    
+            <img id="imagemUser" src="./assets/logo_roxa.png" alt="">
+        </div>
+    
+        <div class="NomeUsuario">Olá, <span id="nomeUser" class="NomeUsuario">Marcio</span></div>
+    
+        <ul>
+            <li><a class="buttonSelecionado"><img class="icone-menu" src="./assets/notification.png" alt="">Avisos ‎ ‎ ‎ </a></li>
+            <li><a class="button" href="./painel.html"><img class="icone-menu" src="./assets/web-analysis.png" alt=""> Painel ‎ ‎ ‎</a></li>
+            <li><a class="button" href="./relatorio.html"><img class="icone-menu" src="./assets/report.png" alt="">Relátorio</a></li>
+            <li><a class="button" href="./usuarios.html"><img class="icone-menu" src="./assets/group.png"
+                        alt="">Usuários</a></li>
+            <br>
+            <br>
+        </ul>
+        <div class="exitContainer"><button class="exitButton" onclick="logout()"><span class='text'>Sair</span><span
+                    class="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path
+                            d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z" />
+                    </svg></span></button></div>
+    
+    </div>
+    
+    <main class="main-content">
+        <h1 class="titulo">Avisos | Alertas Recebidos   </h1>
+        <div class="seletor-servidor">
+            <select name="Seletor servidor" id="seletor_servidor">
+                <option value="">Servidor de Teste</option>
+            </select>
+
+            <button><img src="./assets/settings.png" alt="Configuraçoes" onclick="openConfig()"></button>
+        </div>
+
+        <div class="table-container">
+            <div class="seletor-data">
+                <div class="campo-dataIN-END"><span>De: </span><input type="date" id="dataInicio"></div>
+                <div class="campo-dataIN-END"><span>Até:</span> <input type="date" id="dataFim"></div>
+          
+            </div>
+            <table class="notification-table">
+                <thead>
+                    <tr>
+                        <th>ID da Máquina</th>
+                        <th>Componente</th>
+                        <th>Alerta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>001</td>
+                        <td>CPU</td>
+                        <td>Alta temperatura</td>
+                    </tr>
+                    <tr>
+                        <td>002</td>
+                        <td>Memória</td>
+                        <td>Baixa memória</td>
+                    </tr>
+                    <tr>
+                        <td>003</td>
+                        <td>Disco Rígido</td>
+                        <td>Espaço insuficiente</td>
+                    </tr>
+                    <!-- Adicione mais linhas conforme necessário -->
+                </tbody>
+            </table>
+        </div>
+    
+    
+    </main>
+</body>
+</html>
+<script>
+    function openConfig(){
+        window.location.href = "./confirgurarAlertas.html";
+    }
+</script>

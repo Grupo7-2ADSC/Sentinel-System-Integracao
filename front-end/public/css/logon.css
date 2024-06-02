@@ -1,0 +1,567 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&family=Roboto:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@600&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+    --fonte-titulo: font-family: "Inter", sans-serif;
+    --fonte-paragrafo: font-family: "Poppins", sans-serif;
+
+}
+#menu {
+    display: none;
+}
+
+.welcome-message {
+    position: fixed;
+    top: 20%;
+    left: 80%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    display: none;
+    z-index: 1000;
+}
+
+.message-redefinicao-senha {
+    position: fixed;
+    top: 20%;
+    left: 80%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(71, 194, 91, 0.8);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    display: none;
+    z-index: 1000;
+}
+
+/* HEADER CODE */
+.header {
+    background-color: #613D94;
+    width: 100%;
+    height: 100px;
+    position: relative;
+    border-bottom: 2px solid rgb(0, 0, 0);
+    box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+}
+
+
+
+.header .container {
+    width: 80%;
+    height: 100%;
+    margin: 0 10%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header .container .navbar{
+    margin-right: 170px;
+}
+
+.header .container .navbar ul {
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+    /* margin-right: 170px; */
+}
+
+.header .container .navbar li {
+    display: inline;
+    padding: 20px;
+}
+
+.header .container .navbar li a {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.logo {
+    width: 350px;
+  }
+  
+.imagem-logo{
+    margin-top: 5px;
+    width: 300px;
+    cursor: pointer;
+}
+
+.contact-button {
+    color: #fff;
+    cursor: pointer;
+    background-color: #181818;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    width: 155px;
+    height: 40px;
+    margin-top: 10px;
+    border-radius: 8px;
+    border: none;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Barlow', 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-image: url(../assets/imagens/fundo-logon.png);
+    background-repeat: no-repeat;   
+}
+
+:root {
+    --tamanho-header: 80px;
+    --tamanho-simulador: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
+    --tamanho-login: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
+    --tamanho-footer: 65px;
+}
+
+.container {
+    display: flex;
+    width: 80%;
+    margin: auto;
+}
+
+.login {
+    height: var(--tamanho-login);
+    background-size: cover;
+}
+
+.login .container {
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.card-branco-login {
+    width: 30%;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+    row-gap: 20px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+.card-branco-login h2 {
+    margin: 0;
+    font-size: 30px;
+}
+
+.card-branco-recuperar-senha{
+    width: 30%;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+    row-gap: 20px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+.card-branco-recuperar-senha h2 {
+    margin: 0;
+    font-size: 30px;
+}
+
+#redefinir_senha {
+    display: none;
+}
+
+.formulario {
+    display: flex;
+    height: 90%;
+    width: 80%;
+    justify-content: space-around;
+    flex-direction: column;
+
+}
+
+.formulario span {
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.formulario input {
+    border: 2px solid #32b9cd;
+    height: 30px;
+    text-align: center;
+}
+
+#redefinir-senha-input {
+    margin-top: 20px;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
+
+.botao {
+    cursor: pointer;
+    font-family: "Barlow", sans-serif;
+    border: 0;
+    border-radius: 2px;
+    font-weight: 600;
+    font-size: 15px;
+    color: #fff;
+    background-color: #613D94;
+    width: 120px;
+    height: 30px;
+    align-self: center;
+}
+
+.botao-redefinir {
+    margin-top: 30px;
+}
+
+.naoTenhoConta {
+    /*margin-left: 5px;*/
+    text-align: left;
+    margin-bottom: 35px;
+    margin-top: 15px;
+}
+
+.naoTenhoConta a {
+    text-decoration: none;
+    color: #613D94;
+}
+
+input::placeholder {
+    padding: 10px; /* Espaçamento interno */
+    margin: 10px; /* Espaçamento externo */
+  }
+
+.erroAutenticacao {
+    color: red;
+    display: none;
+}
+
+
+  /* Responsividade login */
+
+  @media (max-width: 380px) {
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Barlow', 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-repeat: no-repeat; 
+        overflow-y: hidden;
+        overflow-x: hidden;
+        background-image: url(../assets/imagens/fundo-logon.pn);
+         
+    }
+
+
+
+    :root {
+        overflow-y: hidden;
+        overflow-x: hidden;
+        font-size: 14px; /* Reduz a fonte para telas menores */
+
+        .header {
+            background-color: #613D94;
+            width: 212%;
+            height: 100px;
+            position: relative;
+            border-bottom: 2px solid rgb(0, 0, 0);
+            box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
+            font-family: "Poppins", sans-serif;
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+          }
+          
+          .header .container {
+            width: 100%;
+            height: 100%;
+            margin: 0 0%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          }
+          
+          .navbar{
+            display: none;
+          }
+          
+          .imagem-logo {
+            margin-left: 30%;
+            margin-top: 0.313rem;
+            width: 13.75rem;
+            cursor: pointer;
+          }
+          
+          
+        
+          
+          #menu {
+            z-index: 2;
+            display: block;
+          }
+          
+          .contact-button{
+            display: none;
+          }
+          
+          #menu-bar {
+            width: 2.813rem;
+            height: 2.5rem;
+            margin: 1.875rem 0 1.25rem 1.25rem;
+            cursor: pointer;
+          }
+          
+          .bar {
+            height: 0.313rem;
+            width: 100%;
+            background-color: white;
+            display: block;
+            border-radius: 0.313rem;
+            transition: 0.3s ease;
+          }
+          
+          #bar1 {
+            transform: translateY(-4px);
+          }
+          
+          #bar3 {
+            transform: translateY(4px);
+          }
+          
+          .nav {
+            transition: 0.3s ease;
+            display: none;
+          }
+          
+          .nav ul {
+            padding: 0 1.375rem;
+          }
+          
+          .nav li {
+            list-style: none;
+            padding: 0.75rem 0;
+          }
+          
+          .nav li a {
+            color: white;
+            font-size: 1.25rem;
+            text-decoration: none;
+          }
+          
+          .nav li a:hover {
+            font-weight: bold;
+          }
+          
+          .menu-bg, #menu {
+            top: 0.938rem;
+            left: 0;
+            position: absolute;
+          }
+          
+          .menu-bg {
+            z-index: 1;
+            width: 0;
+            height: 0;
+            margin: 1.875rem 0 1.25rem 1.25rem;
+            /* background: radial-gradient(circle, #DC052D, #DC052D); */
+            background: #613D94;
+            border-radius: 66%;
+            transition: 0.5s ease;
+          }
+          
+          .change {
+            display: block;
+          }
+          
+          .change .bar {
+            background-color: white;
+          }
+          
+          .change #bar1 {
+            transform: translateY(4px) rotateZ(-45deg);
+          }
+          
+          .change #bar2 {
+            opacity: 0;
+          }
+          
+          .change #bar3 {
+            transform: translateY(-6px) rotateZ(45deg);
+          }
+          
+          .change-bg {
+            width: 635px;
+            height: 630px;
+            transform: translate(-60%,-30%);
+          }
+    }
+
+
+
+
+
+
+    .container {
+        display: flex;
+        width: 90%;
+        margin: auto;
+    }
+    
+    .login {
+        height: var(--tamanho-login);
+        background-size: cover;
+    }
+    
+    .login .container {
+        justify-content: center;
+        align-items: center;
+    
+    }
+    
+    .card-branco-login {
+        width: 80%;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        flex-direction: column;
+        
+        background-color: white;
+        padding: 30px;
+        border-radius: 10px;
+        backdrop-filter: blur(4px);
+    }
+    
+    .card-branco-login h2 {
+        margin: 0;
+        font-size: 30px;
+    }
+
+
+
+
+    
+    .card-branco-recuperar-senha{
+        width: 80%;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        flex-direction: column;
+        row-gap: 5px;
+        background-color: white;
+        padding: 30px;
+        border-radius: 10px;
+        backdrop-filter: blur(4px);
+    }
+    
+    .card-branco-recuperar-senha h2 {
+        margin: 0;
+        font-size: 22px;
+    }
+    
+    #redefinir_senha {
+        display: none;
+    }
+    
+    .formulario {
+        display: flex;
+        height: 0%;
+        width: 80%;
+        justify-content: space-around;
+        flex-direction: column;
+    }
+    
+    .formulario span {
+        font-size: 15px;
+        font-weight: 800;
+    }
+    
+    .formulario input {
+        border: 2px solid #32b9cd;
+        height: 30px;
+        text-align: center;
+    }
+    
+    #redefinir-senha-input {
+        margin-top: 20px;
+    }
+    
+    .campo {
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+    }
+    
+    .botao {
+        cursor: pointer;
+        font-family: "Barlow", sans-serif;
+        border: 0;
+        border-radius: 2px;
+        font-weight: 600;
+        font-size: 15px;
+        color: #fff;
+        background-color: #613D94;
+        width: 120px;
+        height: 30px;
+        align-self: center;
+    }
+    
+    .botao-redefinir {
+        margin-top: 30px;
+    }
+    
+    .naoTenhoConta {
+        margin-left: 5px;
+        text-align: left;
+        margin-bottom: 35px;
+        margin-top: 15px;
+    }
+    
+    .naoTenhoConta a {
+        text-decoration: none;
+        color: #613D94;
+    }
+    
+    input::placeholder {
+        padding: 10px; /* Espaçamento interno */
+        margin: 10px; /* Espaçamento externo */
+      }
+}
+
+
+
+
+
+
+
+
+@media (min-width: 381px) and (max-width: 820px) {
+    .container {
+        width: 90%; /* Ajuste para telas de tamanho médio */
+    }
+}
+
+/* @media (min-width: 821px) {
+    .container {
+        width: 80%; 
+    }
+
+} */

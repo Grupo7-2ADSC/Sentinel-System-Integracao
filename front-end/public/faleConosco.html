@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./css/faleConosco.css">
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="shortcut icon" href="./assets/imagens/iconNavegador.png" type="image/x-icon">
+  <title>Fale Conosco | SSS</title>
+</head>
+
+<body>
+  <div class="header">
+
+    <div class="container">
+
+      <div class="logo">
+        <a href="./index.html"><img class="imagem-logo" src="assets/imagens/logoEmpresa.png" alt=""></a>
+      </div>
+
+      <div class="navbar">
+        <ul>
+          <li><a href="./index.html#conteudo-principal">Home</a></li>
+          <li><a href="./login.html">Login</a></li>
+          <li><a href="./index.html#quem-somos">Quem Somos</a></li>
+        </ul>
+      </div>
+
+      <div id="menu">
+        <div id="menu-bar" onclick="menuOnClick()">
+          <div id="bar1" class="bar"></div>
+          <div id="bar2" class="bar"></div>
+          <div id="bar3" class="bar"></div>
+        </div>
+        <nav class="nav" id="nav">
+          <ul>
+            <li><a href="./index.html#conteudo-principal">Home</a></li>
+            <li><a href="./login.html">Login</a></li>
+            <li><a href="./index.html#quem-somos">Quem somos</a></li>
+            <li><a href="./faleConosco.html">Contato Comercial</a></li>
+
+          </ul>
+        </nav>
+      </div>
+
+      <div class="menu-bg" id="menu-bg"></div>
+
+    </div>
+
+    <!-- <button class="contact-button" onclick="solicitarCotacao()">Contato Comercial</button> -->
+
+  </div>
+
+  <div class="container-tudo">
+
+  <div class="container-titulo">
+    <h1 class="titulo-fale-conosco">Fale conosco</h1>
+  </div>
+
+  <difcv class="form-contato">
+    <div class="head-contato-form">
+      <img class="image-form-contato" src="./assets/imagens/conversando (1).png" alt="imagem chat conversa">
+      <p>Preencha o formulário abaixo e nossa <br>equipe entrará em contato em até 1 dia útil.</p>
+    </div>
+
+    <br>
+    Nome<input type="text" placeholder="Nome" id="">
+    Telefone Comercial<input placeholder="Telefone Comercial" id="">
+    E-mail<input type="text" placeholder="E-mail" id="">
+    Empresa<input type="text" placeholder="Empresa" id="">
+    Descrição<input type="text" placeholder="" id="" style="height: 108px; ">
+    <button class="enviar">Enviar</button>
+  </difcv>
+  <div class="info-contato">
+    <div class="contact-info">
+      <p>Telefone <br> (11) 94959-1340</p>
+      <p>Email <br> sentinelsystemsolutions@gmail.com</p>
+      <p>Contato Comercial <br> (11) 2088-3128</p>
+    </div>
+  </div>
+</div>
+</body>
+
+</html>
+
+<script>
+
+  function menuOnClick() {
+    document.getElementById("menu-bar").classList.toggle("change");
+    document.getElementById("nav").classList.toggle("change");
+    document.getElementById("menu-bg").classList.toggle("change-bg");
+  }
+
+</script>

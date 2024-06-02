@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="shortcut icon" href="./assets/imagens/iconNavegador.png" type="image/x-icon">
+    <title>Home | SSS</title>
+</head>
+<body>
+
+  <div class="header">
+
+        <div class="container">
+
+          <div class="logo"> 
+            <a href="./index.html"><img  class="imagem-logo" src="assets/imagens/logoEmpresa.png" alt=""></a>
+          </div>
+
+            <div class="navbar">
+                <ul>
+                    <li><a href="#conteudo-principal">Home</a></li>
+                    <li><a href="./login.html">Login</a></li>
+                    <li><a href="#quem-somos">Quem somos</a></li>
+                </ul>
+            </div>
+
+            <button class="contact-button" onclick="solicitarCotacao()">Contato Comercial</button>
+
+        </div>
+    
+    <!-- Menu Hamburguer -->
+    <div id="menu">
+      <div id="menu-bar" onclick="menuOnClick()">
+        <div id="bar1" class="bar"></div>
+        <div id="bar2" class="bar"></div>
+        <div id="bar3" class="bar"></div>
+      </div>
+      <nav class="nav" id="nav">
+        <ul>
+          <li><a href="./index.html">Home</a></li>
+          <li><a href="./login.html">Login</a></li>
+          <li><a href="#quem-somos">Quem somos</a></li>
+          <li><a href="./faleConosco.html">Contato Comercial</a></li>
+          
+        </ul>
+      </nav> 
+    </div>
+    
+    <div class="menu-bg" id="menu-bg"></div>
+
+  </div>
+
+
+      <div id="conteudo-principal" 
+      style="background-image: linear-gradient(rgba(0, 0, 0, .15), rgba(0, 0, 0, .15)100%), url('./assets/imagens/backgroundHome.png');">
+        <div class="conteudo-esquerda">
+
+            <h1 class="titulo">Solução de monitoramento <br>completo de Servidores <br>para sua Transportadora</h1>
+
+            <h4 class="paragrafo"> Fique por dentro dos problemas de <br>desempenho e interrupções do servidor <br>com nosso serviço.</h4>
+
+            <button class="solcitar-cotacao" onclick="solicitarCotacao()">Solicite uma cotação</button>
+
+        </div>
+      </div>
+
+       
+
+    </div>
+    <div class="info-monitoramento">
+        <h2 class="titulo-centralizado titulo">Que dados podem ser monitorados?</h2>
+        <div class="imagens-texto">
+            <div class="item">
+                <img src="assets\imagens\ram.png" alt="Imagem memoria ram" onclick="window.dialog.showModal()">
+                <dialog id="dialog">
+                  <h2>Memória</h2>
+                  <p>A memória é um componente extremamente importante em um servidor, sem ela é impossivel armazenar dados bem como impacta diretamente na execução de determinados aplicativos. Além disso, ela é a base para que a CPU execute bem sua função.
+                    <br> <br> <button onclick="window.dialog.close();" aria-label="close" class="x">Close</button>
+                  </p>
+                  </dialog>
+                <p class="paragrafo">Memória</p>
+            </div>
+
+           <div class="item">
+                <img src="assets\imagens\cpu.png" alt="Imagem cpu" onclick="window.dialog_cpu.showModal()">
+                <dialog id="dialog_cpu">
+                  <h2>CPU</h2>
+                  <p>Trabalha juntamente com a memória, a CPU pode ser considerada o cérebro do servidor, é responsável por buscar e processar instruções que estão armazenadas na memória, controlar o fluxo de informações e gerenciar recursos.
+                    <br> <br> <button onclick="window.dialog_cpu.close();" aria-label="close" class="x">Close</button>
+                  </p>
+                  </dialog>
+                <p class="paragrafo">CPU</p>
+            </div>
+
+            <div class="item">
+                <img src="assets\imagens\disco-rigido.png" alt="Imagem Disco" onclick="window.dialog_disco.showModal()">
+                <dialog id="dialog_disco">
+                  <h2>Disco</h2>
+                  <p>O disco tem a função de armazenar e recuperar dados, os dados guardados nesse componente ficam guardados de maneira permanente, mesmo quando o servidor está desligado. Quando falamos de escalabilidade essa peça é parte principal do projeto.
+                    <br> <br> <button onclick="window.dialog_disco.close();" aria-label="close" class="x">Close</button>
+                  </p>
+                  </dialog>
+                <p class="paragrafo">Disco</p>
+            </div>
+
+            <div class="item">
+                <img src="./assets/imagens/internet.png" alt="Imagem Rede" onclick="window.dialog_rede.showModal()">
+                <dialog id="dialog_rede">
+                  <h2>Rede</h2>
+                  <p>O mundo hoje é conectado pela internet, de nada adianta ter um computador com as melhores peças se conexão é instavel e não permite que as informações sejam transportadas na velocidade adequada e o servidor acaba sendo sub-utilizado.
+                    <br> <br> <button onclick="window.dialog_rede.close();" aria-label="close" class="x">Close</button>
+                  </p>
+                  </dialog>
+                <p class="paragrafo">Rede</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="section-monitorarSO">
+        <img src="./assets/imagens/6124995.png" alt="logoLinux">
+        <h2 class="tituloMonitoramento titulo">Monitoramento para <br> sistemas operacionais <br> Linux e Windows</h2>
+        <img src="./assets/imagens/Windows_logo_-_2012_derivative.svg.png" alt="logoWindows">
+    </div>
+
+    <div class="section-decisoes">
+        <h1 class="titulo">Tome decisões de forma mais simples</h1>
+        <ul>
+          <li>
+            <h1 class="titulo">• Gerenciamento de acesso de usuários</h1>
+            <p class="paragrafo">Adicione ou remova usuários com acesso ao sistema.</p>
+          </li>
+          <li>
+            <h1 class="titulo">• Gráficos com indicadores de CPU, Memória, Disco e Rede</h1>
+            <p class="paragrafo">Tenha visibilidade das métricas de desempenho críticas como CPU, memória, uso do disco, rede, serviços e processos.</p>
+          </li>
+          <li>
+            <h1 class="titulo">• Envio de notificações</h1>
+            <p class="paragrafo">Receba notificações a respeito dos status do servidor <br> pelo celular e computador.</p>
+          </li>
+          <li>
+            <h1 class="titulo">• Registro de eventos, erros e avisos</h1>
+            <p class="paragrafo">Registro de todas as atividades do servidor, incluindo notificações de erro e alertas.</p>
+          </li>
+        </ul>
+      </div>
+
+    <div class="section-nao-pare">
+        
+        <div class="imagem-esquerda">
+            <img id="imagem-logistica" src="./assets/imagens/logistica.png" alt="Colocar desc da imagem que fica ao lado">
+        </div>
+        
+        <div class="texto-direita">
+
+            <h2 class="titulo">Não deixe suas operaçoes pararem</h2>
+    
+            <p class="paragrafo">Reduza os riscos de inatividade dos servidores e <br> mantenha suas operações 24Horas.</h4>
+    
+    
+        </div>
+    
+    </div>
+
+    <div class="nao-pare-content">
+      <div>
+          <h1 class="titulo">Obtenha uma monitoração completa dos seus servidores</h1>
+          <button class="solcitar-cotacao" onclick="solicitarCotacao()">Solicite uma cotação</button>
+      </div>
+      <div>
+          <img src="./assets/imagens/controle-de-servidor.png" alt="Colocar desc da imagem que fica ao lado">
+      </div>
+  </div>
+
+    
+    <div class="cabecalho"> <h1 class="titulo">Sobre Nós</h1></div>
+
+    <div id="quem-somos">
+        <div>
+
+        <h2 class="titulo">Ajudamos Transportadoras a manterem <br> suas operações continuamente</h2>
+
+        <p class="paragrafo"> Consideramos a tecnologia como a base para operações logísticas contínuas. 
+            Nossa solução de monitoramento de servidores capacita as transportadoras a manterem suas operações sem interrupções, 
+            24 horas por dia, 7 dias por semana. Nosso compromisso é fornecer tranquilidade e eficiência, 
+            oferecendo um sistema confiável de detecção de problemas para uma tomada de decisões mais eficaz.</h4>
+
+
+    </div>
+
+    <div>
+        <img src="./assets/imagens/sobre-nós-edit.png" alt="Colocar desc da imagem que fica ao lado">
+    </div>
+</div>
+
+<div class="sentinel-insights">
+    <div class="container">
+      <div class="titulo-SSS">
+        <h1 class="titulo">Sentinel System Solutions em números</h1>
+      </div>
+      <div class="body">
+        <div class="imagens-servicos">
+          <div class="imagem-texto">
+            <img src="./assets/imagens/america.png" alt="Imagem 1">
+            <p class="paragrafo">12 Escritórios Globais</p>
+          </div>
+          <div class="imagem-texto">
+            <img src="./assets/imagens/feedback-do-cliente.png" alt="Imagem 2">
+            <p class="paragrafo">974 Clientes</p>
+          </div>
+          <div class="imagem-texto">
+            <img src="./assets/imagens/dados-do-funcionario.png" alt="Imagem 3">
+            <p class="paragrafo">7.400 Funcionários</p>
+          </div>
+        </div>
+        <!-- 
+          Pronto para adicionar produtos
+          <div class="imagens-servicos">
+          <img src="logo1.png" alt="Imagem 1">
+          <img src="logo2.png" alt="Imagem 2">
+          <img src="logo3.png" alt="Imagem 3">
+        </div> -->
+        <div class="logos-clientes">
+          <div class="quadrado-logos">
+            <img src="./assets/imagens/tnt-logo1.png" alt="Logo 1">
+            <img src="./assets/imagens/dhl-logo.png" alt="Logo 2">
+            <img src="./assets/imagens/alfa-logo.png" alt="Logo 3">
+            <img src="./assets/imagens/Fedex-logo.png" alt="Logo 4">
+          </div>
+          <h2 class="titulo">Alguns clientes que confiam <br>na nossa solução</h2>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>&copy;2024 Sentinel System Solutions</p>
+    <a href="#">Terms & Conditions</a>
+    <a href="#">Privacy Policy</a>
+  </div>
+    
+</body>
+</html>
+<script src="/front-end/src/routes/index.js"></script>
+<script>
+  function solicitarCotacao() {
+    window.location.href = "./faleConosco.html";
+}
+
+function menuOnClick() {
+  document.getElementById("menu-bar").classList.toggle("change");
+  document.getElementById("nav").classList.toggle("change");
+  document.getElementById("menu-bg").classList.toggle("change-bg");
+}
+
+
+
+
+</script>

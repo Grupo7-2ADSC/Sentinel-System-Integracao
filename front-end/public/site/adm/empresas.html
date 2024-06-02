@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List empresas</title>
+</head>
+<link rel="stylesheet" href="empresas.css">
+<link rel="stylesheet" href="headerADM.css">
+<body>
+    <div class="header">
+        <div class="container">
+          <div class="logo"> 
+            <a href="./empresas.html"><img class="imagem-logo" src="../site/public/assets/imagens/logoEmpresa.png" alt="logo empresa"></a>
+          </div>
+      
+          <div class="navbar">
+            <ul>
+              <li><a href="./empresas.html">Empresas</a></li>
+              <li><a href="usuarios.html">Usuários</a></li>
+              <li><a href="./tiposacesso.html">Acessos</a></li>
+            </ul>
+          </div>
+      
+          <div id="user-profile" class="user-profile">
+            <img class="img-user" src="./assets/userBranco.png" alt="">
+            <!-- Card sair do usuário -->
+            <div id="user-card" class="user-card">
+                <div class="user-card-content">
+                  <p><span id="userName"></span> | ADM</p> <!-- Aqui sera puxado do banco -->
+                  
+                  <button id="logout-btn"><img class="icon-sair" src="./assets/exitBranco.png" alt="Icone de sair">Sair</button>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+
+
+      
+      <div class="container-table"  id="containerTable">
+        <div class="containerTittle"><h2>Lista de Empresas</h2>
+        <button onclick="cadastrarEmpresa()">Cadastrar Empresa</button></div>
+        <table id="empresasTable">
+            <thead>
+                <tr>
+                    <th>Nome da Empresa</th>
+                    <th>CNPJ</th>
+                    <th>Data de Cadastro</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+            </tbody>
+        </table>
+    </div>
+
+    
+</body>
+</html>
+<script>
+function cadastrarEmpresa(){
+    window.location.href = "../adm/cadastroEmpresa.html";
+}
+document.addEventListener('DOMContentLoaded', function() {
+const userProfile = document.getElementById('user-profile');
+const userCard = document.getElementById('user-card');
+const logoutBtn = document.getElementById('logout-btn');
+const empresasTableBody = document.querySelector('#empresasTable tbody');
+const nomeUsuario = document.getElementById('userName');
+
+nomeUsuario.innerHTML = sessionStorage.NOME_USUARIO;
+
+
+
+
+
+
+userProfile.addEventListener('click', function() {
+    userCard.classList.toggle('active');
+});
+
+document.addEventListener('click', function(event) {
+    if (!userProfile.contains(event.target) && !userCard.contains(event.target)) {
+        userCard.classList.remove('active');
+    }
+});
+
+logoutBtn.addEventListener('click', function() {
+    window.location.href = '../site/public/index.html';
+});
+
+
+// Função para preencher a tabela
+function preencherTabela(empresas) {
+    empresas.forEach(empresa => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${empresa.nome}</td>
+            <td>${empresa.cnpj}</td>
+            <td>${empresa.dataCadastro}</td>
+            <td>
+                <button class="edit" onclick="editarEmpresa(${empresa.id})">Editar</button>
+                <button class="delete" onclick="deletarEmpresa(${empresa.id})">Deletar</button>
+            </td>
+        `;
+        empresasTableBody.appendChild(row);
+    });
+}
+
+// Função para editar uma empresa
+window.editarEmpresa = function(id) {
+    const empresa = empresas.find(emp => emp.id === id);
+    if (empresa) {
+        const nome = prompt('Editar nome da empresa:', empresa.nome);
+        const cnpj = prompt('Editar CNPJ da empresa:', empresa.cnpj);
+        if (nome && cnpj) {
+            empresa.nome = nome;
+            empresa.cnpj = cnpj;
+            atualizarTabela();
+        }
+    }
+}
+
+// Função para deletar uma empresa
+window.deletarEmpresa = function(id) {
+    const index = empresas.findIndex(emp => emp.id === id);
+    if (index > -1) {
+        empresas.splice(index, 1);
+        atualizarTabela();
+    }
+}
+
+// Função para atualizar a tabela
+function atualizarTabela() {
+    empresasTableBody.innerHTML = '';
+    preencherTabela(empresas);
+}
+
+// Preencher a tabela com os dados simulados
+preencherTabela(empresas);
+
+});
+</script>

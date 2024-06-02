@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/painel.css">
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Painel Dashs Interno</title>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="divImg">
+
+            <img id="imagemUser" src="./assets/logo_roxa.png" alt="">
+        </div>
+
+        <div class="NomeUsuario">Olá, <span id="nomeUser" class="NomeUsuario">Marcio</span></div>
+
+        <ul>
+            <li><a class="button" href="./avisos.html"><img class="icone-menu" src="./assets/notification.png" alt="">Avisos ‎ ‎ ‎ </a></li>
+            <li><a class="buttonSelecionado" href="./painel.html"><img class="icone-menu" src="./assets/web-analysis.png" alt=""> Painel ‎ ‎ ‎</a></li>
+            <li><a class="button" href="./relatorio.html"><img class="icone-menu" src="./assets/report.png" alt="">Relátorio</a></li>
+            <li><a class="button" href="./usuarios.html"><img class="icone-menu" src="./assets/group.png" alt="">Usuários</a></li>
+            <br>
+            <br>
+        </ul>
+        <div class="exitContainer"><button class="exitButton" onclick="logout()"><span class='text'>Sair</span><span class="icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"/></svg></span></button></div>
+    
+        </div>
+
+        <main class="main-content">
+        
+                <div class="container-seletorServidor">
+                    <h1 class="titulo">Servidor de backup</h1>
+                    <select class="seletor-servidor" name="Seletor de servidor" id="server-selector" alt="Seletor de servidor">
+                        <option value="server1"> 1 - Servidor de Teste</option>
+                        <option value="server2"> 2 - Servidor de Teste 2 </option>
+                        
+                    </select>
+                   
+                </div> 
+                
+
+        <div class="conteudo-monitoramento">
+            <div class="container-sistema">
+                <div class="conteudo-sistema">
+                    <h1 class="titulo-sistema"> SISTEMA </h1>
+
+                    <P class="tempo-atividade">Data de Inicialização:  <span>04/05/2024</span></P>
+                    <P class="tempo-atividade">Tempo de Atividade:  <span> 6 dias , 4:5:59</span></P>
+                        <div class="conexao-wifi">
+                            <h1 class="titulo-sistema">WI-FI</h1>
+                            <span>Intel(R) Wireless-AC 9462</span>
+    
+                        </div>
+
+                    <canvas id="redeChart" class="rede-grafico"  width="300" height="200"></canvas>
+
+                    <div class="conteudo-rede">
+                        <div class="conteudo-pacotes-topo">
+                            <div class="pacotes">
+                                <p class="text-pacote">Enviados</p>
+                                <span class="dados-pacote">418,7 MB</span>
+                            </div>
+                            <div class="pacotes">
+                                <p class="text-pacote">Pacotes Enviados</p>
+                                <span class="dados-pacote">402461 MB</span>
+                            </div>
+                        </div>
+                        <div class="conteudo-pacotes-bottom">
+                            <div class="pacotes">
+                                <p class="text-pacote"> Recebidos</p>
+                                <span class="dados-pacote">402461 MB</span>
+                            </div>
+                            <div class="pacotes">
+                                <p class="text-pacote">Pacotes Recebidos</p>
+                                <span class="dados-pacote">402461 MB</span>
+                            </div>
+
+                        </div>
+                            
+                        
+                    </div>
+                    <div class="conteudo-ips">
+                        <p class="nome-adaptador">Nome do adaptador: <span>Wifi</span></p>
+                        <p class="endereco-ip">Endereço IPv4: <span>192.168.15.139</span></p>
+                        <p class="endereco-ip">Endereço IPv6: <br><span>2804:1b3:a2c1:3dad:3bb2:fb5f:2591:80c0, 2804:1b3:a2c1:3dad:11e3:3a27:f8e2:ce28, fe80:0:0:0:f428:a9e4:3217:e78</span></p>
+                    </div>
+                </div>
+            </div>
+
+           <div class="container-pid-cpu">
+
+            <div class="chart-cpu">
+                <div class="container-texto"><h1 class="title-cpu">CPU</h1> <span class="nome-cpu">Intel(R) Core(TM)2 Duo CPU T7300 @ 2.00GHz</span></div>
+                <!-- <div id="chart" class="grafico-cpu"> -->
+                    <canvas id="cpuChart" class="grafico-cpu" width="300" height="200"></canvas>
+                </div>
+
+            </div>
+
+            <div class="conteudo-pid">
+
+                <h1 class="titulo-pid">PROCESSOS COM MAIOR USO DE CPU</h1>
+                <table class="tabela-pid">
+                    <tr>
+                        <th class="column-pid">PID</th>
+                        <th class="column-nome">NOME</th>
+                        <th class="column-usoCpu">USO CPU</th>
+                        <th class="column-UsoMemoria">USO MEMORIA</th>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        
+                    </tr>
+                </table>
+                
+            </div>
+
+            
+            </div>
+
+            <div class="container-ram">
+                <div class="indicador-ram">
+                    <div class="label-superior">
+                        <h1 class="titulo-ram">MÉMORIA RAM</h1>
+                        <p class="paragrafo-ram">Total: <span id="totalRam"> 10,2 </span>GB</p>
+                        <p class="paragrafo-ram">Em uso: <span id="totalRam"> 6,7 </span>GB</p>
+                    </div>
+                    <canvas id="ramChart" class="grafico-ram" width="400" height="110"></canvas>
+                </div>
+            
+            </div>
+
+            <div class="container-disco">
+
+                <h1 class="titulo-disco">DISCO</h1>
+                <canvas id="diskChart" class="grafico-ram" width="400" height="110"></canvas>
+
+            
+            </div>
+
+            
+            
+        </div>
+           
+
+        </main>
+    
+</body>
+</html>
+<script>
+
+    // function sair(){
+    //     window.location.href = '/front-end/intern/painel.html';
+    // }
+    document.addEventListener('DOMContentLoaded', function() {
+            const labels = ['60s', '50s', '40s', '30s', '20s', '10s', '0s'];
+            let cpuData = [0, 20, 50, 55, 90, 95, 80];
+            let ramData = [0, 10, 30, 45, 70, 85, 60];
+
+            const cpuCtx = document.getElementById('cpuChart').getContext('2d');
+            const cpuChart = new Chart(cpuCtx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Uso de CPU(%)',
+                        data: cpuData,
+                        borderColor: 'rgb(75, 192, 192)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        fill: true,
+                        tension: 0.1
+                    }]
+                },
+                options: {
+                    scales: {
+                        x: {
+                            ticks: {
+                                font: {
+                                    size: 12 
+                                }
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: '% Utilização'
+                            },
+                            ticks: {
+                                font: {
+                                    size: 10 
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            enabled: true,
+                            callbacks: {
+                                labelColor: function(context) {
+                                    return {
+                                        borderColor: '#000', 
+                                        backgroundColor: '#000', 
+                                        color: ''
+                                    };
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            const ramCtx = document.getElementById('ramChart').getContext('2d');
+            const ramChart = new Chart(ramCtx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Uso de RAM(%)',
+                        data: ramData,
+                        borderColor: 'rgb(192, 75, 75)',
+                        backgroundColor: 'rgba(192, 75, 75, 0.2)',
+                        fill: true,
+                        tension: 0.2
+                    }]
+                },
+                options: {
+                    scales: {
+                        x: {
+                            ticks: {
+                                font: {
+                                    size: 12 
+                                }
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: '% Utilização'
+                            },
+                            ticks: {
+                                font: {
+                                    size: 10 
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            enabled: true,
+                            callbacks: {
+                                labelColor: function(context) {
+                                    return {
+                                        borderColor: '#000', 
+                                        backgroundColor: '#000', 
+                                        color: ''
+                                    };
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+ 
+
+            const labelsDisco = ['Disco 0 (C:)', 'Disco 1 (E:)', 'Disco 2 (D:)'];
+            const usedSpace = [400, 300, 200 ]; 
+            const totalSpace = [1000, 800, 500]; 
+
+            const ctxDisk = document.getElementById('diskChart').getContext('2d');
+            const diskChart = new Chart(ctxDisk, {
+                type: 'bar',
+                data: {
+                    labels: labelsDisco,
+                    datasets: [{
+                        label: 'Volume utilizado',
+                        data: usedSpace,
+                        backgroundColor: 'rgba(255, 99, 132, 0.8)', // Cor da barra para espaço usado
+                        borderColor: 'rgba(255, 99, 132, 1)', // Borda da barra para espaço usado
+                        borderWidth: 1
+                    }, {
+                        label: 'Volume disponivel',
+                        data: totalSpace.map((space, index) => space - usedSpace[index]), // Calcula o espaço livre
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)', // Cor da barra para espaço livre
+                        borderColor: 'rgba(54, 162, 235, 1)', // Borda da barra para espaço livre
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        x: {
+                            stacked: true,
+                            ticks: {
+                                font: {
+                                    size: 12 
+                                }
+                            }
+                        },
+                        y: {
+                            stacked: true,
+                            title: {
+                                display: true,
+                                text: 'Espaço (GB)'
+                            },
+                            ticks: {
+                                font: {
+                                    size: 10 
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            enabled: true
+                        }
+                    }
+                }
+            });
+
+            const labelsRede = ['60s', '50s', '40s', '30s', '20s', '10s', '0s'];
+            let sentData = [0, 20, 50, 55, 90, 95, 80];
+            let receivedData = [0, 10, 30, 45, 70, 85, 60];
+
+            const redeCtx = document.getElementById('redeChart').getContext('2d');
+            const redeChart = new Chart(redeCtx, {
+                type: 'line',
+                data: {
+                    labels: labelsRede,
+                    datasets: [{
+                        label: 'Pacotes Enviados',
+                        data: sentData,
+                        borderColor: 'rgba(154, 237, 29)',
+                        backgroundColor: 'rgba(154, 237, 29, 0.2)',
+                        fill: true,
+                        tension: 0.1
+                    }, {
+                        label: 'Pacotes Recebidos',
+                        data: receivedData,
+                        borderColor: 'rgb(75, 192, 192)',
+                        backgroundColor: 'rgb(75, 192, 192, 0.2)',
+                        fill: true,
+                        tension: 0.1
+                    }]
+                },
+                options: {
+                    scales: {
+                        x: {
+                            ticks: {
+                                font: {
+                                    size: 12 
+                                }
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Pacotes'
+                            },
+                            ticks: {
+                                font: {
+                                    size: 10 
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            enabled: true,
+                            callbacks: {
+                                labelColor: function(context) {
+                                    return {
+                                        borderColor: '#000', 
+                                        backgroundColor: '#000', 
+                                        color: ''
+                                    };
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            function updateData() {
+                cpuData.shift();
+                cpuData.push(Math.floor(Math.random() * 100)); 
+                ramData.shift();
+                ramData.push(Math.floor(Math.random() * 100)); 
+                cpuChart.update();
+                ramChart.update();
+
+                // Grafico de rede
+
+                sentData.shift();
+                sentData.push(Math.floor(Math.random() * 1000)); // Dados fictícios para exemplo
+                receivedData.shift();
+                receivedData.push(Math.floor(Math.random() * 1000)); // Dados fictícios para exemplo
+                redeChart.update();
+            }
+
+            setInterval(updateData, 2000);
+        });
+
+        function logout(){
+            window.location.href = '/front-end/site/public/index.html'
+        }
+        
+</script>

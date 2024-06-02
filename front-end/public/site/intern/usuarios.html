@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/usuarios.css">
+    <title>Usuarios</title>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="divImg">
+            <img id="imagemUser" src="./assets/logo_roxa.png" alt="">
+        </div>
+        <div class="NomeUsuario">Olá, <span id="nomeUser" class="NomeUsuario">Marcio</span></div>
+        <ul>
+            <li><a class="button" href="./avisos.html"><img class="icone-menu" src="./assets/notification.png" alt="">Avisos ‎ ‎ ‎ </a></li>
+            <li><a class="button" href="./painel.html"><img class="icone-menu" src="./assets/web-analysis.png" alt=""> Painel ‎ ‎ ‎</a></li>
+            <li><a class="button" href="./relatorio.html"><img class="icone-menu" src="./assets/report.png" alt="">Relátorio</a></li>
+            <li><a class="buttonSelecionado"><img class="icone-menu" src="./assets/group.png" alt="">Usuários</a></li>
+            <br><br>
+        </ul>
+        <div class="exitContainer"><button class="exitButton" onclick="logout()"><span class='text'>Sair</span><span class="icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"/></svg></span></button></div>
+    </div>
+
+    <main class="main-content">
+        <h1 class="titulo">Usuarios</h1>
+        <div class="container-adcuser">  
+            <button class="btnAdicionarUser" onclick="mostrarModalCadastro()">Adicionar</button>
+        </div>
+
+        <table class="tabela-usuarios">
+            <tr>
+                <th class="column-nome">NOME</th>
+                <th class="column-email">E-MAIL</th>
+                <th class="column-tipoAcesso">TIPO DE ACESSO</th>
+                <th class="column-acoes">AÇOES</th>
+            </tr>
+        </table>
+  
+
+
+        <div id="modal-cadastro" class="modal-overlay">
+            <div class="container-formulario">
+                <div class="conteudo-formulario">
+                    <h1>Cadastro de Usuário</h1>
+                    <div class="bloco-input">
+                        <span>Nome</span>
+                        <input type="text" id="nomeCadastro">
+                    </div>
+                    <div class="bloco-input">
+                        <span>E-mail</span>
+                        <input type="email" id="emailCadastro">
+                    </div>
+                    <div class="bloco-input">
+                        <span>Senha</span>
+                        <input type="password" id="senhaCadastro">
+                    </div>
+                    <div class="bloco-input">
+                        <span>Tipo de acesso</span>
+                        <select id="tipoAcessoCadastro">
+                            <option value="Representante">Representante</option>
+                            <option value="Analista de Infra">Analista de Infra</option>
+                            <option value="Usuario Padrão">Usuario Padrão</option>
+                        </select>
+                    </div>
+                    <div class="btns-confirmar">
+                        <button class="btn-cancelar" onclick="fecharModalCadastro()">Cancelar</button>
+                        <button class="btn-confirmar" onclick="adicionarUsuario()">Cadastrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="modal-excluirFunc">
+            <div class="conteudo-modal-excluirFunc">
+                <img src="./assets/exclamation.png" alt="icone-alerta" class="img-alerta">
+                <div class="text-confrimar-exclusao"><p>Você tem certeza que deseja excluir este usuário?</p></div>
+                <div class="btns-confirmar-excluir">
+                    <button class="btn-cancelar">Cancelar</button>
+                    <button class="btn-confirmar">Sim</button>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
+<script>
+  const users = [
+    { nome: 'Catarina Almeida', email: 'catarinaalmeirda@gmail.com', tipoAcesso: 'Representante' },
+    { nome: 'Marcio Silva', email: 'marcio.silva@gmail.com', tipoAcesso: 'Analista de Infra' },
+    { nome: 'Pedro Carvalho', email: 'pedro.carvalho@gmail.com', tipoAcesso: 'Usuario Padrão' },
+];
+
+function addRowToTable() {
+    const table = document.querySelector('.tabela-usuarios');
+    table.innerHTML = `
+        <tr>
+            <th class="column-nome">NOME</th>
+            <th class="column-email">E-MAIL</th>
+            <th class="column-tipoAcesso">TIPO DE ACESSO</th>
+            <th class="column-acoes">AÇOES</th>
+        </tr>
+    `; // Clear table and add headers
+    users.forEach((user, index) => {
+        const row = document.createElement('tr');
+
+        const nomeCell = document.createElement('td');
+        nomeCell.textContent = user.nome;
+        row.appendChild(nomeCell);
+
+        const emailCell = document.createElement('td');
+        emailCell.textContent = user.email;
+        row.appendChild(emailCell);
+
+        const tipoAcessoCell = document.createElement('td');
+        tipoAcessoCell.textContent = user.tipoAcesso;
+        row.appendChild(tipoAcessoCell);
+
+        const acoesCell = document.createElement('td');
+        const editButton = document.createElement('button');
+        editButton.classList.add('edit-btn');
+        editButton.innerHTML = `<img src="./assets/edit.png" alt="">`;
+        editButton.onclick = () => editarUser(index);
+
+        const deleteButton = document.createElement('button');
+        deleteButton.classList.add('del-btn');
+        deleteButton.innerHTML = `<img src="./assets/set.png" alt="">`;
+        deleteButton.onclick = () => showDeleteModal(index);
+
+        acoesCell.appendChild(editButton);
+        acoesCell.appendChild(deleteButton);
+        row.appendChild(acoesCell);
+
+        table.appendChild(row);
+    });
+}
+
+function editarUser(index) {
+    window.location.href = "/painel.html";
+}
+
+function showDeleteModal(index) {
+    const modal = document.getElementById('modal-excluirFunc');
+    const overlay = document.createElement('div');
+    overlay.classList.add('modal-overlay');
+    overlay.classList.add('show');
+    document.body.appendChild(overlay);
+
+    modal.classList.add('show');
+    overlay.onclick = () => {
+        document.body.removeChild(overlay);
+        modal.classList.remove('show');
+    };
+
+    modal.querySelector('.btn-cancelar').onclick = () => {
+        document.body.removeChild(overlay);
+        modal.classList.remove('show');
+    };
+
+    modal.querySelector('.btn-confirmar').onclick = () => {
+        users.splice(index, 1);
+        addRowToTable();
+        document.body.removeChild(overlay);
+        modal.classList.remove('show');
+    };
+}
+
+function mostrarModalCadastro() {
+    document.getElementById('modal-cadastro').classList.add('show');
+}
+
+function fecharModalCadastro() {
+    document.getElementById('modal-cadastro').classList.remove('show');
+}
+
+function adicionarUsuario() {
+    const nome = document.getElementById('nomeCadastro').value;
+    const email = document.getElementById('emailCadastro').value;
+    const senha = document.getElementById('senhaCadastro').value;
+    const tipoAcesso = document.getElementById('tipoAcessoCadastro').value;
+
+    
+
+    if (nome && email && senha && tipoAcesso) {
+        users.push({ nome, email, tipoAcesso });
+        addRowToTable();
+        fecharModalCadastro();  
+    } else {
+        alert('Por favor, preencha todos os campos.');
+    }
+}
+
+window.onload = () => {
+    addRowToTable();
+};
+
+</script>

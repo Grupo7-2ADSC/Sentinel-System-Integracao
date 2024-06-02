@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="headerADM.css">
+    <link rel="stylesheet" href="user.css">
+    <title>Usuarios</title>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+          <div class="logo"> 
+            <a href="./empresas.html"><img class="imagem-logo" src="../site/public/assets/imagens/logoEmpresa.png" alt="Logo empresa"></a>
+          </div>
+      
+          <div class="navbar">
+            <ul>
+              <li><a href="./empresas.html">Empresas</a></li>
+              <li><a href="./cadastroUsuarios.html">Usuários</a></li>
+              <li><a href="./tiposacesso.html">Acessos</a></li>
+            </ul>
+          </div>
+      
+          <div id="user-profile" class="user-profile">
+            <img class="img-user" src="./assets/userBranco.png" alt="">
+            <!-- Card sair do usuário -->
+            <div id="user-card" class="user-card">
+                <div class="user-card-content">
+                  <p>Gustavo | ADM</p> <!-- Aqui sera puxado do banco -->
+                  
+                  <button id="logout-btn"><img class="icon-sair" src="./assets/exitBranco.png" alt="Icone de sair">Sair</button>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container-table"  id="containerTable">
+        <div class="containerTittle"><h2>Lista de Usuarios</h2>
+        <button onclick="cadastrarUsuario()">Cadastrar Usuarios</button></div>
+        <table id="usersTable">
+            <thead>
+                <tr>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Senha(NO)</th>
+                <th>Data de cadastro</th>
+                <th>Tipo de acesso</th>
+                <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
+<script src="usuarios.js"></script>

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redefinição de Senha | SSS</title>
+  <link rel="stylesheet" href="./css/logon.css">
+  <link rel="stylesheet" href="./css/estilo-logon.css">
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="shortcut icon" href="./assets/imagens/iconNavegador.png" type="image/x-icon">
+</head>
+
+<body>
+  <div class="header">
+
+    <div class="container">
+
+      <div class="logo">
+        <a href="./index.html"><img class="imagem-logo" src="assets/imagens/logoEmpresa.png" alt=""></a>
+      </div>
+
+      <div class="navbar">
+        <ul>
+          <li><a href="./index.html#conteudo-principal">Home</a></li>
+          <li><a href="./login.html">Login</a></li>
+          <li><a href="./index.html#quem-somos">Quem Somos</a></li>
+        </ul>
+      </div>
+
+      <div id="menu">
+        <div id="menu-bar" onclick="menuOnClick()">
+          <div id="bar1" class="bar"></div>
+          <div id="bar2" class="bar"></div>
+          <div id="bar3" class="bar"></div>
+        </div>
+        <nav class="nav" id="nav">
+          <ul>
+            <li><a href="./index.html#conteudo-principal">Home</a></li>
+            <li><a href="./login.html">Login</a></li>
+            <li><a href="./index.html#quem-somos">Quem somos</a></li>
+            <li><a href="./faleConosco.html">Contato Comercial</a></li>
+
+          </ul>
+        </nav>
+      </div>
+
+      <div class="menu-bg" id="menu-bg"></div>
+
+    </div>
+
+    <!-- <button class="contact-button" onclick="solicitarCotacao()">Contato Comercial</button> -->
+
+  </div>
+
+  <div class="message-redefinicao-senha" id="MessageRedefinicao">Senha Atualizada com Sucesso</div>
+
+  <div class="login">
+    <div class="container">
+      <div class="card-branco-recuperar-senha card-recuperar-senha" id="esqueceu_senha">
+        <h2>Esqueceu sua senha?</h2>
+
+        <div class="formulario">
+          <p> Informe o seu e-mail cadastrado</p>
+          <div class="campo-recuperar-senha">
+            <input id="email_input" type="text" placeholder="E-mail">
+
+          </div>
+
+          <p id="erroCamposVaziosAutenticar" class="erroAutenticacao">Preencha o campo para autenticar</p>
+          <p id="dadosInvalidos" class="erroAutenticacao">E-mail inválido</p>
+
+          <button class="botao" onclick="autenticarEmail()">Enviar</button>
+
+        </div>
+      </div>
+
+      <div class="card-branco-recuperar-senha card-recuperar-senha" id="redefinir_senha">
+        <h2>Redefinição de Senha</h2>
+
+        <div class="formulario">
+          <div class="campo-recuperar-senha">
+            <p> Informe a nova senha</p>
+            <input id="nova_senha_input" type="text" placeholder="Nova Senha">
+            <div class="campo-recuperar-senha">
+              <input id="repetir_senha" type="text" placeholder="Repita a Senha">
+            </div>
+
+            <p id="erroCamposVazios" class="erroAutenticacao">Preencha os campos para redefinir</p>
+            <p id="erroTamanhoSenha" class="erroAutenticacao">A senha deve ter 8 caracteres</p>
+            <p id="erroConfirmacao" class="erroAutenticacao">As senhas não coincidem</p>
+
+            <button class="botao-redefinir botao" id="botao-redefinir" onclick="redefinirSenha()">Redefinir</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+</body>
+
+</html>
+
+<script>
+
+function alertmessage() {
+    MessageRedefinicao.style.display = 'block';
+    setTimeout(function () {
+        window.location.href = './login.html';
+      }, 3050);
+  }
+
+
+  var emailVar = email_input.value;
+
+  function autenticarEmail() {
+
+    emailVar = email_input.value;
+
+    console.log("EMAIL REDEFINIÇÃO: ", emailVar);
+
+    if (emailVar == "") {
+      erroCamposVaziosAutenticar.style.display = "block"
+      dadosInvalidos.style.display = "none"
+
+      return false;
+
+    } else {
+
+      erroCamposVaziosAutenticar.style.display = "none"
+    }
+
+    fetch("/redefinirSenha/autenticar", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        emailServer: emailVar
+      })
+    }).then(function (resposta) {
+      console.log("ESTOU NO THEN DO entrar()!")
+
+      if (resposta.ok) {
+        console.log(resposta);
+
+        resposta.json().then(json => {
+          console.log(json);
+          console.log(JSON.stringify(json));
+          console.log(resposta);
+
+          redefinir_senha.style.display = "block";
+          redefinir_senha.style.display = "flex";
+
+          esqueceu_senha.style.display = "none";
+          emailVar = json.email;
+
+        });
+
+      } else {
+        console.log("Houve um erro ao tentar buscar o email!");
+
+        dadosInvalidos.style.display = "block"
+
+        resposta.text().then(texto => {
+          console.error(texto);
+        });
+      }
+
+    }).catch(function (erro) {
+      console.log(erro);
+    })
+
+    return false;
+  }
+
+  function redefinirSenha() {
+    console.log("Acessei a redefinção de senha");
+
+    var nova_senhaVar = nova_senha_input.value;
+    var confirmar_senhaVar = repetir_senha.value;
+
+    if (nova_senhaVar == "" || confirmar_senhaVar == "") {
+      erroCamposVazios.style.display = "block"
+      erroConfirmacao.style.display = "none"
+
+      return false;
+
+    } else {
+
+      erroCamposVazios.style.display = "none"
+    }
+
+    if(nova_senhaVar.length == 8)  {
+
+      erroTamanhoSenha.style.display = "none"
+
+      if(nova_senhaVar == confirmar_senhaVar) {
+
+        erroConfirmacao.style.display = "none"
+        
+        fetch("/redefinirSenha/atualizar", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            emailServer: emailVar,
+            senhaServer: nova_senhaVar
+          }),
+        })
+          .then(function (resposta) {
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+
+              console.log("Redefinição realizada com sucesso");
+              alertmessage();
+
+            } else {
+              throw "Houve um erro ao tentar atualizar a senha!";
+            }
+          })
+          .catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+          });
+
+        return false;
+
+      }else {
+        
+        erroConfirmacao.style.display = "block"
+
+      }
+
+    }else {
+
+      erroTamanhoSenha.style.display = "block"
+      erroConfirmacao.style.display = "none"
+    }
+
+  }
+
+  /*function solicitarCotacao() {
+  window.location.href = "./faleConosco.html";
+  }*/
+
+  function menuOnClick() {
+    document.getElementById("menu-bar").classList.toggle("change");
+    document.getElementById("nav").classList.toggle("change");
+    document.getElementById("menu-bg").classList.toggle("change-bg");
+  }
+
+</script>
