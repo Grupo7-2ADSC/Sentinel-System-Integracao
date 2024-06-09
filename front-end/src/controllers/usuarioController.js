@@ -1,5 +1,6 @@
 var usuarioModel = require("../models/usuarioModel");
 var servidorModel = require("../models/servidorModel");
+var parametrosAlertaModel = require("../models/parametrosAlertaModel");
 
 function autenticar(req, res) {
     var email = req.body.emailServer;
@@ -18,35 +19,32 @@ function autenticar(req, res) {
                     console.log(`Resultados: ${JSON.stringify(resultadoAutenticar)}`); // transforma JSON em String
 
                     if (resultadoAutenticar.length == 1) {
+                        var usuario = resultadoAutenticar[0];
+                        
                         console.log(resultadoAutenticar);
-
-                        servidorModel.buscarServidoresPorEmpresa(resultadoAutenticar[0].empresaId)
-                            .then((resultadoServidores) => {
-                                if (resultadoServidores.length > 0) {
-                                    
-                                    res.json({
-                                        id_usuario: resultadoAutenticar[0].id_usuario,
-                                        email: resultadoAutenticar[0].email,
-                                        nome: resultadoAutenticar[0].nome,
-                                        tipoAcesso: resultadoAutenticar[0].tipoAcesso,
-                                        empresaId: resultadoAutenticar[0].empresaId,
-                                        servidores: resultadoServidores
-
+                        servidorModel.buscarServidoresPorEmpresa(usuario.empresaId)
+                            .then(function (resultadoServidores) {
+                                parametrosAlertaModel.buscarParametrosPorEmpresa(usuario.empresaId)
+                                    .then(function (resultadoParametros) {
+                                        res.json({
+                                            id_usuario: usuario.id_usuario,
+                                            email: usuario.email,
+                                            nome: usuario.nome,
+                                            tipoAcesso: usuario.tipoAcesso,
+                                            empresaId: usuario.empresaId,
+                                            servidores: resultadoServidores.length > 0 ? resultadoServidores : [],
+                                            parametros: resultadoParametros.length > 0 ? resultadoParametros : []
+                                        });
+                                    })
+                                    .catch(function (erroAlertas) {
+                                        console.log("Houve um erro ao buscar os parâmetros de alerta: ", erroAlertas.sqlMessage);
+                                        res.status(500).json(erroAlertas.sqlMessage);
                                     });
-
-                                } else {
-
-                                    res.json({
-                                        id_usuario: resultadoAutenticar[0].id_usuario,
-                                        email: resultadoAutenticar[0].email,
-                                        nome: resultadoAutenticar[0].nome,
-                                        tipoAcesso: resultadoAutenticar[0].tipoAcesso,
-                                        empresaId: resultadoAutenticar[0].empresaId,
-                                        servidores: []
-
-                                    });
-                                }
                             })
+                            .catch(function (erroServidores) {
+                                console.log("Houve um erro ao buscar os servidores: ", erroServidores.sqlMessage);
+                                res.status(500).json(erroServidores.sqlMessage);
+                            });
                     } else if (resultadoAutenticar.length == 0) {
                         res.status(403).send("Email e/ou senha inválido(s)");
                     } else {

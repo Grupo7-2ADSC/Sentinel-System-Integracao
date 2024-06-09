@@ -16,13 +16,16 @@
             <img id="imagemUser" src="./assets/logo_roxa.png" alt="">
         </div>
 
-        <div class="NomeUsuario">Olá, <span id="nomeUser" class="NomeUsuario">Marcio</span></div>
+        <div class="NomeUsuario">Olá, <span id="nomeUser" class="NomeUsuario"></span></div>
 
         <ul>
-            <li><a class="button" href="./avisos.html"><img class="icone-menu" src="./assets/notification.png" alt="">Avisos ‎ ‎ ‎ </a></li>
-            <li><a class="button" href="./painel.html"><img class="icone-menu" src="./assets/web-analysis.png" alt=""> Painel ‎ ‎ ‎</a></li>
+            <li><a class="button" href="./avisos.html"><img class="icone-menu" src="./assets/notification.png"
+                        alt="">Avisos ‎ ‎ ‎ </a></li>
+            <li><a class="button" href="./painel.html"><img class="icone-menu" src="./assets/web-analysis.png" alt="">
+                    Painel ‎ ‎ ‎</a></li>
             <li><a class="buttonSelecionado"><img class="icone-menu" src="./assets/report.png" alt="">Relátorio</a></li>
-            <li><a class="button" href="./usuarios.html"><img class="icone-menu" src="./assets/group.png" alt=""> Usuários </a></li>
+            <li><a class="button" href="./usuarios.html"><img class="icone-menu" src="./assets/group.png" alt="">
+                    Usuários </a></li>
             <br>
             <br>
         </ul>
@@ -44,15 +47,15 @@
                 <h1>Filtros de Pesquisa</h1>
             </div>
             <div class="container-selecaoData">
-                <select name="" id="seletor-servidor">
-                    <option value="server_teste">Servidor de Teste</option>
+                <select name="servidores" id="listaServidores">
+                    <option selected>Selecione um servidor</option>
                 </select>
 
                 <div class="campo-dataIN-END"><span>De: </span><input type="date" id="dataInicio"></div>
                 <div class="campo-dataIN-END"><span>Até:</span> <input type="date" id="dataFim"></div>
             </div>
             <div class="div-buttonGerar">
-                <button id="gerarRelatorioButton">Gerar Relatório</button>
+                <button id="gerarRelatorioButton" onclick="gerarRelatorio()">Gerar Relatório</button>
             </div>
         </div>
 
@@ -61,55 +64,9 @@
                 <img src="./assets/list.png" alt="">
                 <h1>Resultado da Pesquisa</h1>
             </div>
-            <div class="container-cardsExibir">
 
-                <div class="card-exibição">
-                    <div class="title-card">
-                        <h1>Servidor</h1>
-                    </div>
+            <p id="erroBusca"></p>
 
-                    <div class="content-card-servidor">
-                        <p>Servidor de Teste</p>
-                    </div>
-
-                </div>
-                <div class="card-exibição">
-                    <div class="title-card">
-                        <h1>CPU</h1>
-                    </div>
-                    <div class="content-card">
-                        <div class="card-exibição-conteudo">
-                            <p>Picos de Utilização: <span>10</span></p> 
-                            <p> Possíveis problemas de sobrecarga identificados .</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-exibição">
-                    <div class="title-card">
-                        <h1>MEMORIA RAM</h1>
-                    </div>
-                    <div class="content-card">
-                        <div class="card-exibição-conteudo">
-                            <p>Picos de Utilização: <span>10</span></p> 
-                            <p> Nenhum problema encontrado .</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-exibição">
-                    <div class="title-card">
-                        <h1>Discos</h1>
-                    </div>
-                    <div class="content-card">
-                        <div class="card-exibição-conteudo-disco">
-                            <p class="bold"> Disco 0 (<span>C:</span>)</p>
-                            <p class="bold">Espaço Dísponivel: <span> 50</span> GiB</p>
-                            <p>Capacidade abaixo do limite recomendado.</p>
-                        </div>
-                    </div>
-                </div>
-    
-            </div>
-           
         </div>
     </main>
 
@@ -118,41 +75,329 @@
 </html>
 
 <script>
+
+    nomeUser.innerHTML = sessionStorage.NOME_USUARIO;
+
+    function listar() {
+
+        let servidoresJson = sessionStorage.getItem('SERVIDORES');
+
+        if (servidoresJson) {
+            let servidores = JSON.parse(servidoresJson);
+
+            servidores.forEach((servidor) => {
+                document.getElementById('listaServidores').innerHTML += `<option value='${servidor.id_servidor}'>${servidor.nome}</option>`;
+            });
+        } else {
+            console.log("#ERRO: Nenhum servidor encontrado no sessionStorage");
+        }
+    }
+
+    listar();
+
+    function formatarData(data) {
+        let partes = data.split('-');
+
+        // Se o formato for 'YYYY-MM-DD'
+        let ano = partes[0];
+        let mes = partes[1];
+        let dia = partes[2];
+
+        return `${ano}-${mes}-${dia}`;
+    }
+
+    function gerarRelatorio() {
+
+        var cardExibir = document.querySelector(".container-cardsExibir");
+        if (cardExibir) {
+            cardExibir.remove();
+        }
+
+        let parametrosJson = sessionStorage.getItem('PARAMETROS_ALERTAS');
+        var parametro_max_cpuVar;
+        var parametro_max_memoriaVar;
+        var parametro_max_DiscoVar;
+        var parametro_min_DiscoVar;
+
+        if (parametrosJson) {
+            let parametros = JSON.parse(parametrosJson);
+
+            parametros.forEach(function (parametro) {
+                if (parametro.tipo_componente == "CPU") {
+                    parametro_max_cpuVar = parametro.parametro_max;
+                } else if (parametro.tipo_componente == "MEMORIA") {
+                    parametro_max_memoriaVar = parametro.parametro_max;
+                } else if (parametro.tipo_componente == "DISCO") {
+                    parametro_max_DiscoVar = parametro.parametro_max;
+                    parametro_min_DiscoVar = parametro.parametro_min;
+
+                }
+            });
+        } else {
+            console.log("#ERRO: Nenhum parametro encontrado no sessionStorage");
+        }
+
+        var idServidor = listaServidores.value;
+
+        var dataInicioVar = formatarData(dataInicio.value);
+        var dataFimVar = formatarData(dataFim.value);
+
+
+        fetch(`/relatorios/buscar/${idServidor}?dataInicio=${dataInicioVar}&dataFim=${dataFimVar}&parametro_max_cpu=${parametro_max_cpuVar}&parametro_max_memoria=${parametro_max_memoriaVar}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    var resultado_pesquisa = document.getElementById("erroBusca");
+                    var mensagem = document.createElement("span");
+                    mensagem.innerHTML = "Nenhum resultado encontrado."
+                    resultado.appendChild(mensagem);
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                    var container = document.createElement("div");
+                    container.className = "container-cardsExibir";
+
+                    // Card Servidor
+                    var cardServidor = document.createElement("div");
+                    cardServidor.className = "card-exibição";
+
+                    var titleServidor = document.createElement("div");
+                    titleServidor.className = "title-card";
+
+                    var h1Servidor = document.createElement("h1");
+                    h1Servidor.textContent = "Servidor";
+
+                    var contentServidor = document.createElement("div");
+                    contentServidor.className = "content-card-servidor";
+
+                    // Obtém o índice da opção selecionada na combobox de servidores
+                    var selectedIndex = document.getElementById('listaServidores').selectedIndex;
+
+                    // Obtém o nome do servidor diretamente da opção selecionada
+                    var nomeServidor = document.getElementById('listaServidores').options[selectedIndex].text;
+
+                    var pNomeServidor = document.createElement("p");
+                    pNomeServidor.textContent = "" + nomeServidor;
+                    pNomeServidor.id = "nome-servidor";
+
+                    contentServidor.appendChild(pNomeServidor);
+                    titleServidor.appendChild(h1Servidor);
+                    cardServidor.appendChild(titleServidor);
+                    cardServidor.appendChild(contentServidor);
+                    container.appendChild(cardServidor);
+
+                    // Card CPU
+                    var cardCPU = document.createElement("div");
+                    cardCPU.className = "card-exibição";
+
+                    var titleCPU = document.createElement("div");
+                    titleCPU.className = "title-card";
+
+                    var h1CPU = document.createElement("h1");
+                    h1CPU.textContent = "CPU";
+
+                    var contentCPU = document.createElement("div");
+                    contentCPU.className = "content-card";
+
+                    var cardConteudoCPU = document.createElement("div");
+                    cardConteudoCPU.className = "card-exibição-conteudo";
+
+                    var picosCPU = resposta[0].picos_cpu;
+
+                    var pPicosCPU = document.createElement("p");
+                    pPicosCPU.textContent = "Picos de Utilização: " + picosCPU;
+                    pPicosCPU.id = "picos-cpu";
+
+                    var pVerificacaoCPU;
+
+                    if (picosCPU > 20) {
+                        pVerificacaoCPU = document.createElement("p");
+                        pVerificacaoCPU.textContent = "Sobrecarga de CPU!";
+                        pVerificacaoCPU.className = "critico";
+                    } else if (picosCPU >= 10 && picosCPU <= 20) {
+                        pVerificacaoCPU = document.createElement("p");
+                        pVerificacaoCPU.textContent = "Há possíveis problemas de sobrecarga identificados.";
+                        pVerificacaoCPU.className = "atencao";
+                    } else {
+                        pVerificacaoCPU = document.createElement("p");
+                        pVerificacaoCPU.textContent = "Nem um problema de sobrecarga identificado";
+                        pVerificacaoCPU.className = "normal";
+                    }
+
+                    cardConteudoCPU.appendChild(pPicosCPU);
+                    cardConteudoCPU.appendChild(pVerificacaoCPU);
+                    contentCPU.appendChild(cardConteudoCPU);
+                    titleCPU.appendChild(h1CPU);
+                    cardCPU.appendChild(titleCPU);
+                    cardCPU.appendChild(contentCPU);
+                    container.appendChild(cardCPU);
+
+                    // Card Memória RAM
+                    var cardMemoria = document.createElement("div");
+                    cardMemoria.className = "card-exibição";
+
+                    var titleMemoria = document.createElement("div");
+                    titleMemoria.className = "title-card";
+
+                    var h1Memoria = document.createElement("h1");
+                    h1Memoria.textContent = "MEMORIA RAM";
+
+                    var contentMemoria = document.createElement("div");
+                    contentMemoria.className = "content-card";
+
+                    var cardConteudoMemoria = document.createElement("div");
+                    cardConteudoMemoria.className = "card-exibição-conteudo";
+
+                    var picosMEMORIA = resposta[0].picos_memoria;
+
+                    var pPicosMemoria = document.createElement("p");
+                    pPicosMemoria.textContent = "Picos de Utilização: " + picosMEMORIA;
+                    pPicosMemoria.id = "picos-memoria";
+
+                    var pVerificacaoMemoria;
+
+                    if (picosMEMORIA > 20) {
+                        pVerificacaoMemoria = document.createElement("p");
+                        pVerificacaoMemoria.textContent = "Crítico";
+                        pVerificacaoMemoria.className = "critico";
+                    } else if (picosMEMORIA >= 10 && picosMEMORIA <= 20) {
+                        pVerificacaoMemoria = document.createElement("p");
+                        pVerificacaoMemoria.textContent = "Atencao";
+                        pVerificacaoMemoria.className = "atencao";
+                    } else {
+                        pVerificacaoMemoria = document.createElement("p");
+                        pVerificacaoMemoria.textContent = "Normal";
+                        pVerificacaoMemoria.className = "normal";
+                    }
+
+                    cardConteudoMemoria.appendChild(pPicosMemoria);
+                    cardConteudoMemoria.appendChild(pVerificacaoMemoria);
+                    contentMemoria.appendChild(cardConteudoMemoria);
+                    titleMemoria.appendChild(h1Memoria);
+                    cardMemoria.appendChild(titleMemoria);
+                    cardMemoria.appendChild(contentMemoria);
+                    container.appendChild(cardMemoria);
+
+                    // Card Discos
+                    var cardDisco = document.createElement("div");
+                    cardDisco.className = "card-exibição";
+
+                    // Cria um título para a seção de discos
+                    var titleDisco = document.createElement("div");
+                    titleDisco.className = "title-card";
+
+                    var h1Disco = document.createElement("h1");
+                    h1Disco.textContent = "Discos";
+
+                    // Adiciona o título ao card de discos
+                    titleDisco.appendChild(h1Disco);
+                    cardDisco.appendChild(titleDisco);
+
+                    // Cria um container principal para o conteúdo dos discos
+                    var contentDisco = document.createElement("div");
+                    contentDisco.className = "content-card";
+
+                    // Cria um único container para o conteúdo de todos os discos
+                    var cardConteudoDisco = document.createElement("div");
+                    cardConteudoDisco.className = "card-exibição-conteudo-disco";
+
+                    // Loop através da resposta para criar entradas para cada disco
+                    resposta.forEach(function (disco) {
+                        if (disco.nome_componente !== null && disco.letra !== null && disco.uso !== null) {
+                            // Cria e adiciona o nome do disco
+                            var pNomeDisco = document.createElement("p");
+                            pNomeDisco.innerHTML = `<span class='bold'>${disco.nome_componente}</span>`;
+                            cardConteudoDisco.appendChild(pNomeDisco);
+
+                            // Cria e adiciona o espaço disponível
+                            var pEspacoDisponivel = document.createElement("p");
+                            pEspacoDisponivel.innerHTML = `<span class='bold'>Espaço Disponível:</span> <span>${disco.uso}</span> GiB`;
+                            cardConteudoDisco.appendChild(pEspacoDisponivel);
+
+                            // Cria e adiciona o status do disco
+                            var pVerificacaoDisco;
+
+                            if (disco.uso > parametro_min_DiscoVar) {
+                                pVerificacaoDisco = document.createElement("p");
+                                pVerificacaoDisco.textContent = "O espaço em disco está dentro dos limites aceitáveis.";
+                                pVerificacaoDisco.className = "normal";
+                            } else if (disco.uso >= parametro_max_DiscoVar && disco.uso <= parametro_min_DiscoVar) {
+                                pVerificacaoDisco = document.createElement("p");
+                                pVerificacaoDisco.textContent = "Precisa de mais armazenamento. O espaço em disco está se aproximando do limite.";
+                                pVerificacaoDisco.className = "atencao";
+                            } else if (disco.uso < parametro_max_DiscoVar) {
+                                pVerificacaoDisco = document.createElement("p");
+                                pVerificacaoDisco.textContent = "Capacidade abaixo do limite recomendado. O espaço em disco está próximo do limite.";
+                                pVerificacaoDisco.className = "critico";
+                            }
+
+                            cardConteudoDisco.appendChild(pVerificacaoDisco);
+                        }
+                    });
+
+                    // Adiciona o container de conteúdo ao card principal de discos
+                    contentDisco.appendChild(cardConteudoDisco);
+                    cardDisco.appendChild(contentDisco);
+
+                    // Adiciona o card de discos ao container principal
+                    container.appendChild(cardDisco);
+
+                    var containerResultadoPesquisa = document.querySelector(".container-resultadoPesquisa");
+
+                    containerResultadoPesquisa.appendChild(container);
+                });
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+        });
+
+    }
+
     document.addEventListener('DOMContentLoaded', function () {
-    const dataInicio = document.getElementById('dataInicio');
-    const dataFim = document.getElementById('dataFim');
-    const gerarRelatorioButton = document.getElementById('gerarRelatorioButton');
+        const dataInicio = document.getElementById('dataInicio');
+        const dataFim = document.getElementById('dataFim');
+        const gerarRelatorioButton = document.getElementById('gerarRelatorioButton');
 
-    // Função para obter a data de hoje no formato YYYY-MM-DD
-    function getTodayDate() {
-        const today = new Date();
-        const yyyy = today.getFullYear();
-        const mm = String(today.getMonth() + 1).padStart(2, '0'); // Janeiro é 0!
-        const dd = String(today.getDate()).padStart(2, '0');
-        return `${yyyy}-${mm}-${dd}`;
-    }
-
-    // Definir o valor máximo do campo dataFim para a data de hoje
-    dataFim.max = getTodayDate();
-
-    function validateDates() {
-        const startDate = new Date(dataInicio.value);
-        const endDate = new Date(dataFim.value);
-
-        if (startDate > endDate) {
-            alert('A data de início não pode ser posterior à data de fim.');
-            return false;
+        // Função para obter a data de hoje no formato YYYY-MM-DD
+        function getTodayDate() {
+            const today = new Date();
+            const yyyy = today.getFullYear();
+            const mm = String(today.getMonth() + 1).padStart(2, '0'); // Janeiro é 0!
+            const dd = String(today.getDate()).padStart(2, '0');
+            return `${yyyy}-${mm}-${dd}`;
         }
-        return true;
-    }
 
-    gerarRelatorioButton.addEventListener('click', function (event) {
-        if (!validateDates()) {
-            event.preventDefault();
+        // Definir o valor máximo do campo dataFim para a data de hoje
+        dataFim.max = getTodayDate();
+
+        function validateDates() {
+            const startDate = new Date(dataInicio.value);
+            const endDate = new Date(dataFim.value);
+
+            if (startDate > endDate) {
+                alert('A data de início não pode ser posterior à data de fim.');
+                return false;
+            }
+            return true;
         }
+
+        gerarRelatorioButton.addEventListener('click', function (event) {
+            if (!validateDates()) {
+                event.preventDefault();
+            }
+        });
+
+        dataInicio.addEventListener('change', validateDates);
+        dataFim.addEventListener('change', validateDates);
     });
-
-    dataInicio.addEventListener('change', validateDates);
-    dataFim.addEventListener('change', validateDates);
-});
 </script>

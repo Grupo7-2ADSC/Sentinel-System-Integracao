@@ -69,6 +69,7 @@ body {
     text-align: center;
     margin-top: 8%;
     font-size: 20px;
+    color: white;
 }
 
 
@@ -272,13 +273,12 @@ color: black;
 
 .container-resultadoPesquisa{
     margin-top: 40px;
-    border: 1px solid rgb(0, 0, 0);
-    border-radius: 5px;
     height: 350px;
 }
 
 .tittle-resultado{
-    /* border: 2px solid rgb(0, 0, 0); */
+    border: 1px solid rgb(0, 0, 0);
+    border-radius: 2px;
     height: 35px;
     display: flex;
     align-items: center;
@@ -297,7 +297,11 @@ color: black;
 
 .container-cardsExibir{
     display: flex;
-    height: 90%;
+    height: 95%;
+    border: 1px solid rgb(0, 0, 0);
+    border-top: none;
+    border-radius: 2px;
+    
 }
 
 .card-exibição{
@@ -359,7 +363,8 @@ color: black;
 .card-exibição-conteudo-disco{
     /* border: 1px solid brown; */
     width: 90%;
-    height: 90%;
+    height: 100%;
+    margin-top: 5px;
 }
 
 .card-exibição-conteudo-disco p{

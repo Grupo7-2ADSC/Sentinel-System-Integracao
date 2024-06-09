@@ -8,7 +8,6 @@ function buscarServidoresPorEmpresa(empresaId) {
   return database.executar(instrucaoSql);
 }
 
-
 module.exports = {
   buscarServidoresPorEmpresa
 }

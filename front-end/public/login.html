@@ -141,9 +141,8 @@
           sessionStorage.NOME_USUARIO = json.nome;
           sessionStorage.TIPO_ACESSO = json.tipoAcesso;
           sessionStorage.ID_EMPRESA = json.empresaId;
-          // Verificando se a propriedade "servidores" existe em json e se possui algum valor
-          // Se não existir ou for um array vazio, definimos sessionStorage.SERVIDORES como uma string vazia
-          sessionStorage.SERVIDORES = json.servidores && json.servidores.length > 0 ? JSON.stringify(json.servidores) : '';
+          sessionStorage.SERVIDORES = JSON.stringify(json.servidores);
+          sessionStorage.PARAMETROS_ALERTAS = JSON.stringify(json.parametros);
 
           console.log(resposta);
           redirecionarUsuario(json.tipoAcesso);
@@ -175,10 +174,16 @@
       setTimeout(function () {
         window.location.href = './site/adm/empresas.html';
       }, 3050);
-    } else if (tipoDeAcesso === 'Representante' || tipoDeAcesso === 'Gestor de Infra') {
-      window.location.href = './site/intern/painel.html';
-    } else if (tipoDeAcesso === 'Usuario padrão') {
-      window.location.href = '#';
+    } else if (tipoDeAcesso === 'Representante' || tipoDeAcesso === 'Analista de Infraestrutura') {
+      alertwelcome();
+      setTimeout(function () {
+        window.location.href = './site/intern/painel.html';
+      }, 3050);
+    } else if (tipoDeAcesso === 'Usuário Padrão') {
+      alertwelcome();
+      setTimeout(function () {
+        window.location.href = './site/intern/painel.html';
+      }, 3050);
     } else {
       console.error('Tipo de acesso inválido.');
     }

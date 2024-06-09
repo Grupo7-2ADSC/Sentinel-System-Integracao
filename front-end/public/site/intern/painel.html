@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="./css/painel.css">
     <title>Painel</title>
 </head>
+
 <body>
 
     <div class="sidebar">
@@ -18,86 +20,95 @@
         <div class="NomeUsuario">Olá, <span id="nomeUser" class="NomeUsuario">Marcio</span></div>
 
         <ul>
-            <li><a class="button" href="./avisos.html"><img class="icone-menu" src="./assets/notification.png" alt="">Avisos ‎ ‎ ‎ </a></li>
-            <li><a class="buttonSelecionado"><img class="icone-menu" src="./assets/web-analysis.png" alt=""> Painel ‎ ‎ ‎</a></li>
-            <li><a class="button" href="./relatorio.html"><img class="icone-menu" src="./assets/report.png" alt="">Relátorio</a></li>
-            <li><a class="button" href="./usuarios.html"><img class="icone-menu" src="./assets/group.png" alt="">Usuários</a></li>
+            <li><a class="button" href="./avisos.html"><img class="icone-menu" src="./assets/notification.png"
+                        alt="">Avisos ‎ ‎ ‎ </a></li>
+            <li><a class="buttonSelecionado"><img class="icone-menu" src="./assets/web-analysis.png" alt=""> Painel ‎ ‎
+                    ‎</a></li>
+            <li><a class="button" href="./relatorio.html"><img class="icone-menu" src="./assets/report.png"
+                        alt="">Relátorio</a></li>
+            <li><a class="button" href="./usuarios.html"><img class="icone-menu" src="./assets/group.png"
+                        alt="">Usuários</a></li>
             <br>
             <br>
         </ul>
-        <div class="exitContainer"><button class="exitButton"  onclick="logout()"><span class='text'>Sair</span><span class="icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-            <path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"/></svg></span></button></div>
-    
-        </div>
+        <div class="exitContainer"><button class="exitButton" onclick="logout()"><span class='text'>Sair</span><span
+                    class="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path
+                            d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z" />
+                    </svg></span></button></div>
 
-        <main class="main-content">
-            <h1 class="titulo">Painel Geral</h1>
+    </div>
 
-            <div class="container-card-main">
+    <main class="main-content">
+        <h1 class="titulo">Painel Geral</h1>
 
-                <div class="card-kpi">
-                    <p class="conteudo-card">Quantidade de Servidores com uso de RAM acima de 80%</p>
-                    <span class="conteudo-card">2</span>
-                </div>
+        <div class="container-card-main">
 
-                <div class="card-kpi">
-                    <p class="conteudo-card">Quantidade de Servidores com pouco espaço em disco</p>
-                    <span class="conteudo-card">1</span>
-                </div>
-                
-
-                <div class="card-kpi">
-                    <p class="conteudo-card">Quantidade de Servidores com uso de CPU acima de 80%</p>
-                    <span class="conteudo-card">3</span>
-                </div>
-
-                <div class="card-kpi">
-                    <p class="conteudo-card">Total de Servidores</p>
-                    <span class="conteudo-card">8</span>
-                </div>
-                
+            <div class="card-kpi">
+                <p class="conteudo-card">Quantidade de Servidores com uso de RAM acima de 80%</p>
+                <span class="conteudo-card">2</span>
             </div>
 
-           <div class="conjunto-seletor">
+            <div class="card-kpi">
+                <p class="conteudo-card">Quantidade de Servidores com pouco espaço em disco</p>
+                <span class="conteudo-card">1</span>
+            </div>
+
+
+            <div class="card-kpi">
+                <p class="conteudo-card">Quantidade de Servidores com uso de CPU acima de 80%</p>
+                <span class="conteudo-card">3</span>
+            </div>
+
+            <div class="card-kpi">
+                <p class="conteudo-card">Total de Servidores</p>
+                <span class="conteudo-card">8</span>
+            </div>
+
+        </div>
+
+        <div class="conjunto-seletor">
             <div class="seletor-filtro">
                 <p>Filtrar servidores por indicador</p>
-                <select class="" name="seletor de filtro" id="select-indicador" alt="seletor de filtro" onchange="filtrarServidores()">
+                <select class="" name="seletor de filtro" id="select-indicador" alt="seletor de filtro"
+                    onchange="filtrarServidores()">
                     <option value="all">todos</option>
                     <option value="verde">verde</option>
                     <option value="amarelo">amarelo</option>
                     <option value="vermelho">vermelho</option>
                 </select>
             </div>
-            <button id="botaoInfo" class="botao-info" onclick="toggleInfo()"> <img class="icon-info" src="./assets/infoPreta.png" alt="Botão de informações"></button>
-           
+            <button id="botaoInfo" class="botao-info" onclick="toggleInfo()"> <img class="icon-info"
+                    src="./assets/infoPreta.png" alt="Botão de informações"></button>
+
             <div id="infoDiv" class="info-div">
-            <div class="superior-info">
+                <div class="superior-info">
 
-                <p>Indice</p>
-            <button id="closeButton" class="closeButton" onclick="toggleInfo()">X</button>
+                    <p>Indice</p>
+                    <button id="closeButton" class="closeButton" onclick="toggleInfo()">X</button>
 
-            </div>
+                </div>
 
-            <div class="conteudo-legenda">
-                <div class="legenda-info">
-                <p>🟢</p>
-                <span><b>Indicador Verde</b>
-                <br> <br> Nem um componente do Servidor  apresenta problemas.</span>
-            </div>
+                <div class="conteudo-legenda">
+                    <div class="legenda-info">
+                        <p>🟢</p>
+                        <span><b>Indicador Verde</b>
+                            <br> <br> Nem um componente do Servidor apresenta problemas.</span>
+                    </div>
 
-            <div class="legenda-info">
-                <p>🟡</p>
-                <span><b>Indicador Amarelo</b>
-                <br> <br> Um componente do Servidor apresenta problemas.</span>
-            </div>
+                    <div class="legenda-info">
+                        <p>🟡</p>
+                        <span><b>Indicador Amarelo</b>
+                            <br> <br> Um componente do Servidor apresenta problemas.</span>
+                    </div>
 
-            <div class="legenda-info">
-                <p>🔴</p>
-                <span><b>Indicador Vermelho</b>
-                <br> <br> 2 ou mais componentes do Servidor  apresentam problemas.</span>
-            </div>
-            </div>
+                    <div class="legenda-info">
+                        <p>🔴</p>
+                        <span><b>Indicador Vermelho</b>
+                            <br> <br> 2 ou mais componentes do Servidor apresentam problemas.</span>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="line-cadastroServer">
@@ -105,45 +116,46 @@
             <button class="alterar-servidor">Alterar</button>
             <button class="excluir-servidor">Excluir</button>
         </div>
-        <div id="overlay" >
+        <div id="overlay">
             <div id="cadastroServer" class="cadastroServer">
                 <h2 class="titulo">Cadastro de Servidor</h2>
                 <button id="closeBtn" onclick="closeCadastro()" style="color: black;">X</button>
-               <div class="fomulario-cadastroServer">
-                <p class="p-sever">Nome</p>
-                <input class="inp-server" type="text" name="" id="" alt="">
-                <p class="p-sever">Hostname</p>
-                <input class="inp-server" type="text" name="" id="" alt="">
-            </div>
-            <button onclick="closeCadastro()" class="btn-cadastrarServer">Cadastrar</button>
+                <div class="fomulario-cadastroServer">
+                    <p class="p-sever">Nome</p>
+                    <input class="inp-server" type="text" name="" id="" alt="">
+                    <p class="p-sever">Hostname</p>
+                    <input class="inp-server" type="text" name="" id="" alt="">
+                </div>
+                <button onclick="closeCadastro()" class="btn-cadastrarServer">Cadastrar</button>
             </div>
         </div>
 
-            <div class="container-servidores" id="containerServidores"></div>
-        </main>
-   
-    
+        <div class="container-servidores" id="containerServidores"></div>
+    </main>
+
+
 </body>
+
 </html>
 
 <script>
-    var idUser = 1; 
+
+    //var idUser = 1; 
     // apenas para teste deixei como id user, mas aqui seria tipoCargo onde 0 = adm, 1 gestor infra e 2 funcionario, mas como
     // todo usuario que não seja adm ou infra vai ver a mesma coisa, cai no else, e ai não tem permissão alguma
-    
+    //var tipoUsuario = "";
 
-    var tipoUsuario = "";
     addEventListener("DOMContentLoaded", (event) => {
-       
-        for(let i = 0; i < 8; i++){ 
-            let contagem = i+1;
+
+        for (let i = 0; i < 8; i++) {
+            let contagem = i + 1;
             let cor = "🟢";
 
-            
-            
-            if(i % 2 == 0) cor = "🟡";
+
+
+            if (i % 2 == 0) cor = "🟡";
             else cor = '🔴';
-           
+
             containerServidores.innerHTML += ` <div class="conteudo-servidores" onclick="redirecionarParaPagina(event)">
                     <div class="card-servidores" id="servidor${contagem}">
                         <span class="alocacao">
@@ -157,38 +169,38 @@
                         </div>
                     </div>
                 </div>`;
-            console.log(i , "passou aqui")
-            
+            console.log(i, "passou aqui")
+
         }
     });
 
-// function cargo() {
-//     if (idUser == 0) {
-//         tipoUsuario = "ADM";
-//     } else if (idUser == 1) {
-//         tipoUsuario = "gestor_infra";
-//     } else {
-//         tipoUsuario = "funcionario";
-//     }
-// }
+    // function cargo() {
+    //     if (idUser == 0) {
+    //         tipoUsuario = "ADM";
+    //     } else if (idUser == 1) {
+    //         tipoUsuario = "gestor_infra";
+    //     } else {
+    //         tipoUsuario = "funcionario";
+    //     }
+    // }
 
-// cargo(); 
-// var imagemUsuario = document.getElementById("imagemUser");
+    // cargo(); 
+    // var imagemUsuario = document.getElementById("imagemUser");
 
-// if (tipoUsuario === "gestor_infra") {
-//     imagemUsuario.src = "assets/empresa.png";
-// } else if (tipoUsuario === "ADM") {
-//     imagemUsuario.src = "assets/empresa.png";
-// } else {
-//     imagemUsuario.src = "./assets/logo_semNomepng.png";
-// }
+    // if (tipoUsuario === "gestor_infra") {
+    //     imagemUsuario.src = "assets/empresa.png";
+    // } else if (tipoUsuario === "ADM") {
+    //     imagemUsuario.src = "assets/empresa.png";
+    // } else {
+    //     imagemUsuario.src = "./assets/logo_semNomepng.png";
+    // }
 
-function redirecionarParaPagina(event) {
+    function redirecionarParaPagina(event) {
         // Verifica se o clique foi dentro da div do servidor
         if (event.currentTarget.classList.contains('conteudo-servidores')) {
             // Obtém o ID do servidor clicado
             const servidorId = event.currentTarget.querySelector('.card-servidores').id;
-            
+
             // alerta com id do server
             alert('Clicou no servidor com ID: ' + servidorId);
 
@@ -198,41 +210,41 @@ function redirecionarParaPagina(event) {
 
 
     function toggleInfo() {
-    var botaoInfo = document.getElementById('botaoInfo');
-    var infoDiv = document.getElementById('infoDiv');
-    
-    // botaoInfo.classList.remove('bounce');
-    
-    infoDiv.style.display = (infoDiv.style.display === 'block') ? 'none' : 'block';
-}
+        var botaoInfo = document.getElementById('botaoInfo');
+        var infoDiv = document.getElementById('infoDiv');
 
-function filtrarServidores() {
-    var selectIndicador = document.getElementById('select-indicador');
-    var indicadorSelecionado = selectIndicador.value;
+        // botaoInfo.classList.remove('bounce');
 
-    var servidores = document.querySelectorAll('.conteudo-servidores');
+        infoDiv.style.display = (infoDiv.style.display === 'block') ? 'none' : 'block';
+    }
 
-    servidores.forEach(function(servidor) {
-        var indicadorServidor = servidor.querySelector('.alocacao p:nth-child(2)').textContent;
+    function filtrarServidores() {
+        var selectIndicador = document.getElementById('select-indicador');
+        var indicadorSelecionado = selectIndicador.value;
 
-        if (indicadorSelecionado === 'all' || (indicadorSelecionado === 'verde' && indicadorServidor === '🟢') || (indicadorSelecionado === 'amarelo' && indicadorServidor === '🟡') || (indicadorSelecionado === 'vermelho' && indicadorServidor === '🔴')) {
-            servidor.style.display = 'block';
-        } else {
-            servidor.style.display = 'none';
-        }
-    });
-}
+        var servidores = document.querySelectorAll('.conteudo-servidores');
 
-function openCadastro() {
-    document.getElementById("overlay").style.display = "block";
-}
+        servidores.forEach(function (servidor) {
+            var indicadorServidor = servidor.querySelector('.alocacao p:nth-child(2)').textContent;
 
-function closeCadastro() {
-    document.getElementById("overlay").style.display = "none";
-}
+            if (indicadorSelecionado === 'all' || (indicadorSelecionado === 'verde' && indicadorServidor === '🟢') || (indicadorSelecionado === 'amarelo' && indicadorServidor === '🟡') || (indicadorSelecionado === 'vermelho' && indicadorServidor === '🔴')) {
+                servidor.style.display = 'block';
+            } else {
+                servidor.style.display = 'none';
+            }
+        });
+    }
 
-function logout(){
-            window.location.href = '/front-end/site/public/index.html'
-        }
+    function openCadastro() {
+        document.getElementById("overlay").style.display = "block";
+    }
+
+    function closeCadastro() {
+        document.getElementById("overlay").style.display = "none";
+    }
+
+    function logout() {
+        window.location.href = '/front-end/site/public/index.html'
+    }
 
 </script>

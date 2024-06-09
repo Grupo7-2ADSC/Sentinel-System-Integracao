@@ -47,7 +47,7 @@ tipo VARCHAR(45) NOT NULL
 -- CONFIGURAÇÃO DE ALERTAS
 
 CREATE TABLE ConfiguracaoAlerta (
-id_configuracao INT PRIMARY KEY NOT NULL,
+id_configuracao INT PRIMARY KEY AUTO_INCREMENT,
 parametro_min DECIMAL(5,2) NOT NULL,
 parametro_max DECIMAL(5,2) NOT NULL,
 fk_tipo_componente INT NOT NULL,
@@ -65,9 +65,9 @@ id_servidor INT PRIMARY KEY AUTO_INCREMENT,
 nome VARCHAR(45) NOT NULL,
 host_name VARCHAR(45) NOT NULL,
 data_cadastro DATETIME DEFAULT CURRENT_TIMESTAMP,
-fk_empresa INT, 
+fk_empresa INT NOT NULL, 
 CONSTRAINT fk_empresa_servidor FOREIGN KEY (fk_empresa) 
-	REFERENCES empresa (id_empresa) ON DELETE CASCADE
+	REFERENCES Empresa (id_empresa) ON DELETE CASCADE
 );
 
 CREATE TABLE Componente (
@@ -111,7 +111,7 @@ uso DECIMAL(10,2) NOT NULL,
 data_registro DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
 fk_componente INT NOT NULL,
 CONSTRAINT fk_componente FOREIGN KEY (fk_componente)
-	REFERENCES componente (id_componente) ON DELETE CASCADE
+	REFERENCES Componente (id_componente) ON DELETE CASCADE
 );
 
 CREATE TABLE ProcessoRegistro (
@@ -142,24 +142,48 @@ CONSTRAINT fk_Servidor_rede FOREIGN KEY (fk_servidor)
 
 -- INSERTS
 
-INSERT INTO Empresa (cnpj, nome) VALUES
-	(1243567865335675, "Sentinel System Solutions"),
-    (1643797653329731, "DHL");
-    
-INSERT INTO Servidor (nome, host_name, fk_empresa) VALUES
-	( "Servidor de Backup", "SAMSUNGBOOK", 2),
-    ( "Servidor de Email", "SAMSUNGBOOK", 2);
-    
-INSERT INTO TipoAcesso (tipo) VALUES ('Administrador'), ('Representante'), ('Gestor de Infra'), ('Usuario Padrão');
-    
-INSERT INTO Usuario (nome, email, senha, fk_tipo_acesso, fk_empresa) VALUES 
-	("Emmily Ferreira", "emmilyferreira@gmail.com", "12345678", 1, 1),
-    ("Marcio Santana", "marciosantana@gmail.com", "91234567", 3, 2);
+INSERT INTO TipoAcesso (tipo) VALUES
+	("Administrador"),
+    ("Representante"),
+    ("Analista de Infraestrutura"),
+	("Usuário Padrão");
     
 INSERT INTO TipoComponente (tipo) VALUES
 	("CPU"),
     ("MEMORIA"),
     ("DISCO");
+    
+INSERT INTO Empresa (cnpj, nome) VALUES
+	("123456789123456", "Sentinel System Solutions"),
+	("789012345678912", "DHL");
+
+INSERT INTO ConfiguracaoAlerta (parametro_min, parametro_max, fk_tipo_componente, fk_empresa) VALUES
+	(60.0, 80.0, 1, 2),
+    (40.0, 70.0, 2, 2),
+    (150.0, 100.0, 3, 2);
+    
+INSERT INTO Usuario (nome, email, senha, fk_tipo_acesso, fk_empresa) VALUES
+	("Emmily", "emmilyferreira@gmail.com", 6122829, 1, 1),
+    ("Marcio", "marciosantana@gmail.com", 12345678, 3, 2),
+	("Marcos", "marcos@gmail.com", 44533291, 4, 2);
+    
+INSERT INTO Servidor (nome, host_name, fk_empresa) VALUES
+	("Servidor de Backup", "XPTO-45YDU", 2),
+    ("Servidor de Email", "XPTU-76PDU", 2);
+
+INSERT INTO Componente (nome, total_gib, fk_tipo_componente, fk_servidor) VALUES
+	("CPU Servidor 1", null, 1, 1),
+    (null, 7.0 , 2, 1),
+    ("Disco C (0)", 223.0, 3, 1),
+	("Disco E (1)", 200.0, 3, 1),
+    ("Disco F (2)", 150.0, 3, 1);
+
+INSERT INTO Registro (uso, fk_componente) VALUES
+	(70.0, 1),
+    (60.0, 2),
+    (90.0, 3),
+	(100.0, 4),
+    (85.0, 5);
     
 -- SELECTS
 
@@ -175,3 +199,5 @@ SELECT * FROM ProcessoRegistro;
 SELECT * FROM RedeRegistro;
 SELECT * FROM Componente;
 SELECT * FROM Registro;
+
+
