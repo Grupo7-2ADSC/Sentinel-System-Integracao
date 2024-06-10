@@ -20,7 +20,7 @@ function autenticar(req, res) {
 
                     if (resultadoAutenticar.length == 1) {
                         var usuario = resultadoAutenticar[0];
-                        
+
                         console.log(resultadoAutenticar);
                         servidorModel.buscarServidoresPorEmpresa(usuario.empresaId)
                             .then(function (resultadoServidores) {
@@ -62,11 +62,12 @@ function autenticar(req, res) {
 
 }
 
-function cadastrar(req, res) {
+function cadastrarUsuarioInterno(req, res) {
     var nome = req.body.nomeServer;
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
-    var empresaId = req.body.empresaServer;
+    var acessoId = req.body.acessoIdServer;
+    var empresaId = req.body.empresaIdServer;
 
     if (nome === undefined) {
         res.status(400).send("Seu nome está undefined!");
@@ -74,10 +75,12 @@ function cadastrar(req, res) {
         res.status(400).send("Seu email está undefined!");
     } else if (senha === undefined) {
         res.status(400).send("Sua senha está undefined!");
+    } else if (acessoId === undefined) {
+        res.status(400).send("Seu acesso está undefined!");
     } else if (empresaId === undefined) {
         res.status(400).send("Sua empresa está undefined!");
     } else {
-        usuarioModel.cadastrar(nome, email, senha, empresaId)
+        usuarioModel.cadastrarUsuarioInterno(nome, email, senha, acessoId, empresaId)
             .then(resultado => {
                 res.json(resultado);
             })
@@ -88,7 +91,53 @@ function cadastrar(req, res) {
     }
 }
 
+function listar(req, res) {
+    var idEmpresa = req.params.idEmpresa;
+
+    usuarioModel.listar(idEmpresa)
+        .then(
+            function (resultado) {
+                if (resultado.length > 0) {
+                    res.status(200).json(resultado);
+                } else {
+                    res.status(204).send("Nenhum resultado encontrado!");
+                }
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "Houve um erro ao buscar os usuarios: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
+function deletar(req, res) {
+    var nomeUsuario = req.params.nomeUsuario;
+
+    usuarioModel.deletar(nomeUsuario)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao deletar o usuário: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
+
 module.exports = {
     autenticar,
-    cadastrar
+    cadastrarUsuarioInterno,
+    listar,
+    deletar
 };

@@ -1,71 +1,85 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/usuarios.css">
+    <link rel="shortcut icon" href="./assets/iconNavegador.png" type="image/x-icon">
     <title>Usuarios</title>
 </head>
-<body>
+
+<body onload="atualizarUsuarios(), listarAcessos()">
     <div class="sidebar">
         <div class="divImg">
-            <img id="imagemUser" src="./assets/logo_roxa.png" alt="">
+            <img id="imagemUser" src="./assets/logo_semNomepng.png" alt="">
         </div>
-        <div class="NomeUsuario">Olá, <span id="nomeUser" class="NomeUsuario">Marcio</span></div>
+        <div class="NomeUsuario">Olá, <span id="nomeUser" class="NomeUsuario"></span></div>
         <ul>
-            <li><a class="button" href="./avisos.html"><img class="icone-menu" src="./assets/notification.png" alt="">Avisos ‎ ‎ ‎ </a></li>
-            <li><a class="button" href="./painel.html"><img class="icone-menu" src="./assets/web-analysis.png" alt=""> Painel ‎ ‎ ‎</a></li>
-            <li><a class="button" href="./relatorio.html"><img class="icone-menu" src="./assets/report.png" alt="">Relátorio</a></li>
-            <li><a class="buttonSelecionado"><img class="icone-menu" src="./assets/group.png" alt="">Usuários</a></li>
+            <li><a class="button" href="./avisos.html"><img class="icone-menu" src="./assets/sino-de-notificacao.png"
+                        alt="">Avisos ‎ ‎ ‎ </a></li>
+            <li><a class="button" href="./painel.html"><img class="icone-menu" src="./assets/painel.png" alt="">
+                    Painel ‎ ‎ ‎</a></li>
+            <li><a class="button" href="./relatorio.html"><img class="icone-menu" src="./assets/relatorio-de-lucro.png"
+                        alt="">Relátorio</a></li>
+            <li><a class="buttonSelecionado"><img class="icone-menu" src="./assets/silhueta-de-multiplos-usuarios.png" alt="">Usuários</a></li>
             <br><br>
         </ul>
-        <div class="exitContainer"><button class="exitButton" onclick="logout()"><span class='text'>Sair</span><span class="icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-            <path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"/></svg></span></button></div>
+        <div class="exitContainer"><button class="exitButton" onclick="logout()"><span class='text'>Sair</span><span
+                    class="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path
+                            d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z" />
+                    </svg></span></button></div>
     </div>
 
     <main class="main-content">
         <h1 class="titulo">Usuarios</h1>
-        <div class="container-adcuser">  
+        <div class="container-adcuser">
             <button class="btnAdicionarUser" onclick="mostrarModalCadastro()">Adicionar</button>
         </div>
 
-        <table class="tabela-usuarios">
-            <tr>
-                <th class="column-nome">NOME</th>
-                <th class="column-email">E-MAIL</th>
-                <th class="column-tipoAcesso">TIPO DE ACESSO</th>
-                <th class="column-acoes">AÇOES</th>
-            </tr>
-        </table>
-  
+        <div class="table-container">
+            <table class="tabela-usuarios">
+            </table>
+        </div>
 
+        <div class="message-cadastro" id="MessageCadastro">
+            Cadastro realizado com sucesso
+            <img src="./assets/ok.png">
+        </div>
 
         <div id="modal-cadastro" class="modal-overlay">
+
             <div class="container-formulario">
                 <div class="conteudo-formulario">
                     <h1>Cadastro de Usuário</h1>
                     <div class="bloco-input">
                         <span>Nome</span>
-                        <input type="text" id="nomeCadastro">
+                        <input type="text" id="nome_input">
+                        <p id="erroNome" class="erroCadastro">O nome deve ter 3 caracteres ou mais</p>
                     </div>
                     <div class="bloco-input">
                         <span>E-mail</span>
-                        <input type="email" id="emailCadastro">
+                        <input type="email" id="email_input">
+                        <p id="erroEmail" class="erroCadastro">O e-mail deve conter @ e .com</p>
                     </div>
                     <div class="bloco-input">
                         <span>Senha</span>
-                        <input type="password" id="senhaCadastro">
+                        <input type="password" id="senha_input">
+                        <p id="erroSenha" class="erroCadastro">A senha deve ter 8 caracteres</p>
                     </div>
                     <div class="bloco-input">
                         <span>Tipo de acesso</span>
-                        <select id="tipoAcessoCadastro">
-                            <option value="Representante">Representante</option>
-                            <option value="Analista de Infra">Analista de Infra</option>
-                            <option value="Usuario Padrão">Usuario Padrão</option>
+                        <select name="acessos" id="listaAcessos">
                         </select>
                     </div>
-                    <div class="btns-confirmar">
+
+
+                    <p id="erroCamposVazios" class="erroCadastro">Preencha os campos para cadastrar</p>
+
+
+                    <div class="btns">
                         <button class="btn-cancelar" onclick="fecharModalCadastro()">Cancelar</button>
                         <button class="btn-confirmar" onclick="adicionarUsuario()">Cadastrar</button>
                     </div>
@@ -73,127 +87,269 @@
             </div>
         </div>
 
+        <div class="message-deletar" id="MessageDelete">
+            Usuário removido com sucesso
+            <img src="./assets/ok.png">
+        </div>
+
         <div id="modal-excluirFunc">
             <div class="conteudo-modal-excluirFunc">
-                <img src="./assets/exclamation.png" alt="icone-alerta" class="img-alerta">
-                <div class="text-confrimar-exclusao"><p>Você tem certeza que deseja excluir este usuário?</p></div>
-                <div class="btns-confirmar-excluir">
+                <img src="./assets/relatorio.png" alt="icone-alerta" class="img-alerta">
+                <div class="text-confrimar-exclusao">
+                    <p>Você tem certeza que deseja excluir este usuário?</p>
+                </div>
+                <div class="btns">
                     <button class="btn-cancelar">Cancelar</button>
-                    <button class="btn-confirmar">Sim</button>
+                    <button class="btn-confirmar" onclick="deletarUsuario()">Sim</button>
                 </div>
             </div>
         </div>
     </main>
 </body>
+
 </html>
 <script>
-  const users = [
-    { nome: 'Catarina Almeida', email: 'catarinaalmeirda@gmail.com', tipoAcesso: 'Representante' },
-    { nome: 'Marcio Silva', email: 'marcio.silva@gmail.com', tipoAcesso: 'Analista de Infra' },
-    { nome: 'Pedro Carvalho', email: 'pedro.carvalho@gmail.com', tipoAcesso: 'Usuario Padrão' },
-];
 
-function addRowToTable() {
-    const table = document.querySelector('.tabela-usuarios');
-    table.innerHTML = `
-        <tr>
-            <th class="column-nome">NOME</th>
-            <th class="column-email">E-MAIL</th>
-            <th class="column-tipoAcesso">TIPO DE ACESSO</th>
-            <th class="column-acoes">AÇOES</th>
-        </tr>
-    `; // Clear table and add headers
-    users.forEach((user, index) => {
-        const row = document.createElement('tr');
+    nomeUser.innerHTML = sessionStorage.NOME_USUARIO;
 
-        const nomeCell = document.createElement('td');
-        nomeCell.textContent = user.nome;
-        row.appendChild(nomeCell);
+    var idEmpresa = sessionStorage.ID_EMPRESA;
 
-        const emailCell = document.createElement('td');
-        emailCell.textContent = user.email;
-        row.appendChild(emailCell);
+    function atualizarUsuarios() {
+        fetch(`/usuarios/listar/${idEmpresa}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+            if (resposta.ok) {
 
-        const tipoAcessoCell = document.createElement('td');
-        tipoAcessoCell.textContent = user.tipoAcesso;
-        row.appendChild(tipoAcessoCell);
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
 
-        const acoesCell = document.createElement('td');
-        const editButton = document.createElement('button');
-        editButton.classList.add('edit-btn');
-        editButton.innerHTML = `<img src="./assets/edit.png" alt="">`;
-        editButton.onclick = () => editarUser(index);
+                    const table = document.querySelector('.tabela-usuarios');
+                    table.innerHTML = `
+                                    <tr>
+                                        <th class="column-nome">NOME</th>
+                                        <th class="column-email">E-MAIL</th>
+                                        <th class="column-tipoAcesso">TIPO DE ACESSO</th>
+                                        <th class="column-acoes">AÇÕES</th>
+                                    </tr>
+                                    `;
 
-        const deleteButton = document.createElement('button');
-        deleteButton.classList.add('del-btn');
-        deleteButton.innerHTML = `<img src="./assets/set.png" alt="">`;
-        deleteButton.onclick = () => showDeleteModal(index);
+                    resposta.forEach((resposta, index) => {
+                        const row = document.createElement('tr');
 
-        acoesCell.appendChild(editButton);
-        acoesCell.appendChild(deleteButton);
-        row.appendChild(acoesCell);
+                        const nomeCell = document.createElement('td');
+                        nomeCell.textContent = resposta.nome;
+                        row.appendChild(nomeCell);
 
-        table.appendChild(row);
-    });
-}
+                        const emailCell = document.createElement('td');
+                        emailCell.textContent = resposta.email;
+                        row.appendChild(emailCell);
 
-function editarUser(index) {
-    window.location.href = "/painel.html";
-}
+                        const tipoAcessoCell = document.createElement('td');
+                        tipoAcessoCell.textContent = resposta.tipo_acesso;
+                        row.appendChild(tipoAcessoCell);
 
-function showDeleteModal(index) {
-    const modal = document.getElementById('modal-excluirFunc');
-    const overlay = document.createElement('div');
-    overlay.classList.add('modal-overlay');
-    overlay.classList.add('show');
-    document.body.appendChild(overlay);
+                        const acoesCell = document.createElement('td');
+                        const editButton = document.createElement('button');
+                        editButton.classList.add('edit-btn');
+                        editButton.innerHTML = `<img src="./assets/edit.png" alt="">`;
+                        editButton.onclick = () => editarUser(index);
 
-    modal.classList.add('show');
-    overlay.onclick = () => {
-        document.body.removeChild(overlay);
-        modal.classList.remove('show');
-    };
+                        const deleteButton = document.createElement('button');
+                        deleteButton.classList.add('del-btn');
+                        deleteButton.innerHTML = `<img src="./assets/recycle.png" alt="">`;
+                        deleteButton.onclick = () => showDeleteModal(index);
 
-    modal.querySelector('.btn-cancelar').onclick = () => {
-        document.body.removeChild(overlay);
-        modal.classList.remove('show');
-    };
+                        acoesCell.appendChild(editButton);
+                        acoesCell.appendChild(deleteButton);
+                        row.appendChild(acoesCell);
 
-    modal.querySelector('.btn-confirmar').onclick = () => {
-        users.splice(index, 1);
-        addRowToTable();
-        document.body.removeChild(overlay);
-        modal.classList.remove('show');
-    };
-}
-
-function mostrarModalCadastro() {
-    document.getElementById('modal-cadastro').classList.add('show');
-}
-
-function fecharModalCadastro() {
-    document.getElementById('modal-cadastro').classList.remove('show');
-}
-
-function adicionarUsuario() {
-    const nome = document.getElementById('nomeCadastro').value;
-    const email = document.getElementById('emailCadastro').value;
-    const senha = document.getElementById('senhaCadastro').value;
-    const tipoAcesso = document.getElementById('tipoAcessoCadastro').value;
-
-    
-
-    if (nome && email && senha && tipoAcesso) {
-        users.push({ nome, email, tipoAcesso });
-        addRowToTable();
-        fecharModalCadastro();  
-    } else {
-        alert('Por favor, preencha todos os campos.');
+                        table.appendChild(row);
+                    })
+                });
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+        });
     }
-}
 
-window.onload = () => {
-    addRowToTable();
-};
+    /*function editarUser(index) {
+ 
+     }*/
+
+    function showDeleteModal(index) {
+
+        const modal = document.getElementById('modal-excluirFunc');
+        const overlay = document.createElement('div');
+        overlay.classList.add('modal-overlay');
+        overlay.classList.add('show');
+        document.body.appendChild(overlay);
+
+        modal.classList.add('show');
+        overlay.onclick = () => {
+            document.body.removeChild(overlay);
+            modal.classList.remove('show');
+        };
+
+        modal.querySelector('.btn-cancelar').onclick = () => {
+            document.body.removeChild(overlay);
+            modal.classList.remove('show');
+        };
+
+        modal.querySelector('.btn-confirmar').onclick = () => {
+            const nomeUsuario = document.querySelector('.tabela-usuarios').rows[index + 1].cells[0].textContent; // Obtém o nome do usuário
+            deletar(nomeUsuario);
+        };
+    }
+
+    function alertmessageDelete() {
+        MessageDelete.style.display = "block";
+        MessageDelete.style.display = "flex";
+        setTimeout(function () {
+            window.location.href = './usuarios.html';
+        }, 2000);
+    }
+
+    function deletar(nomeUsuario) {
+        fetch(`/usuarios/deletar/${nomeUsuario}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+
+            if (resposta.ok) {
+
+                alertmessageDelete();
+
+            } else if (resposta.status == 404) {
+                console.log(`Deu 404!`);
+            } else {
+                throw ("Houve um erro ao tentar realizar a exclução " + resposta.status);
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+    }
+
+    function mostrarModalCadastro() {
+        document.getElementById('modal-cadastro').classList.add('show');
+        erroCamposVazios.style.display = "none"
+        erroNome.style.display = "none"
+    }
+
+    function fecharModalCadastro() {
+        document.getElementById('modal-cadastro').classList.remove('show');
+    }
+
+    function listarAcessos() {
+        fetch("/acessos/listar", {
+            method: "GET",
+        })
+            .then(function (resposta) {
+                resposta.json().then((acessos) => {
+                    acessos.forEach((acessos) => {
+                        listaAcessos.innerHTML += `<option value='${acessos.id_tipo_acesso}'>${acessos.tipo}</option>`;
+                    });
+                });
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+    }
+
+    function alertmessageCadastro() {
+        MessageCadastro.style.display = "block";
+        MessageCadastro.style.display = "flex";
+        setTimeout(function () {
+            window.location.href = './usuarios.html';
+        }, 2000);
+    }
+
+    function adicionarUsuario() {
+
+        var nomeVar = nome_input.value;
+        var emailVar = email_input.value;
+        var senhaVar = senha_input.value;
+        var acessoVar = listaAcessos.value;
+        var empresaVar = sessionStorage.getItem('ID_EMPRESA');
+
+        if (nomeVar == "" || emailVar == "" || senhaVar == "" || acessoVar == "") {
+            erroCamposVazios.style.display = "block"
+            erroNome.style.display = "none"
+
+            return false;
+
+        } else {
+
+            erroCamposVazios.style.display = "none"
+        }
+
+        if (nomeVar.length >= 3) {
+
+            erroNome.style.display = "none"
+
+            if (emailVar.indexOf("@") >= 0 && emailVar.indexOf(".com") >= 0) {
+
+                erroEmail.style.display = "none"
+
+                if (senhaVar.length == 8) {
+
+                    erroSenha.style.display = "none"
+
+                    fetch("/usuarios/cadastrarUsuarioInterno", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            nomeServer: nomeVar,
+                            emailServer: emailVar,
+                            senhaServer: senhaVar,
+                            acessoIdServer: acessoVar,
+                            empresaIdServer: empresaVar
+                        }),
+                    })
+                        .then(function (resposta) {
+                            console.log("resposta: ", resposta);
+
+                            if (resposta.ok) {
+
+                                alertmessageCadastro();
+
+                            } else {
+                                throw "Houve um erro ao tentar realizar o cadastro!";
+                            }
+                        })
+                        .catch(function (resposta) {
+                            console.log(`#ERRO: ${resposta}`);
+                        });
+
+                    return false;
+
+
+                } else {
+
+                    erroSenha.style.display = "block";
+
+                }
+
+            } else {
+
+                erroEmail.style.display = "block";
+
+            }
+
+        } else {
+
+            erroNome.style.display = "block";
+
+        }
+
+    }
 
 </script>

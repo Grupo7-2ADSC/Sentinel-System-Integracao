@@ -200,4 +200,3 @@ SELECT * FROM RedeRegistro;
 SELECT * FROM Componente;
 SELECT * FROM Registro;
 
-

@@ -84,8 +84,7 @@ body {
 }
 
 .buttonSelecionado {
-    color: #6517ff;
-    
+    color: #007bff;;
     border-radius: 10px;
     width: 120px;
     font-size: 14px;
@@ -194,20 +193,19 @@ body {
 }
 
 .titulo{
-    font-size: 30px;
-    color: black;
+    font-size: 28px;
+    color: #007bff;
 } 
 
 .container-filtroPesquisa{
-    border: 1px solid rgb(0, 0, 0);
     margin-top: 20px;
     height: 200px;
     width: 100%;
     border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .tittle-filtro{
-    border: 1px solid rgb(0, 0, 0);
     height: 40px;
     display: flex;
     align-items: center;
@@ -216,7 +214,7 @@ body {
     border-top: none;
     border-left: none;
     border-right: none;
-    background-color: #EFEFEF;
+    background-color: #007bff;
 }
 
 .tittle-filtro img{
@@ -224,7 +222,7 @@ body {
     margin-left: 10px;
 }
 .tittle-filtro h1{
-color: black;
+    color: white;
  
 }
 
@@ -260,12 +258,18 @@ color: black;
     margin: 15px;
     display: flex;
     justify-content: end;
+    margin-top: 50px;
 }
 
 .div-buttonGerar button{
     width: 110px;
     font-size: 13px;
     height:30px;
+    background-color: #007bff;
+    color: white;
+    border: 1px solid white;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 
@@ -277,12 +281,13 @@ color: black;
 }
 
 .tittle-resultado{
-    border: 1px solid rgb(0, 0, 0);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 2px;
     height: 35px;
     display: flex;
     align-items: center;
     gap: 10px;
+    background-color: rgb(143, 143, 143);
     
 }
 
@@ -291,34 +296,30 @@ color: black;
     margin-left: 10px;
 }
 .tittle-resultado h1{
-color: black;
+color: white;
  
 }
 
 .container-cardsExibir{
     display: flex;
     height: 95%;
-    border: 1px solid rgb(0, 0, 0);
     border-top: none;
     border-radius: 2px;
-    
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .card-exibição{
-    /* border: 1px solid brown; */
     width: 25%;
     height: 100%;
-    background-color: #EFEFEF;
 }
 
 .title-card{
-    color: #000;
-    border: 1px solid rgb(0, 0, 0);
     height: 34px;
     display: flex;
     align-items: center;
     border-left: none;
-    
+    background-color: #007bff;
+    color: white;
     
 }
 

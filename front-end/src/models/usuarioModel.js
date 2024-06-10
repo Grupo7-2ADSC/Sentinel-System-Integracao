@@ -14,18 +14,40 @@ function autenticar(email, senha) {
     return database.executar(query, [email, senha]);
 }
 
-function cadastrar(nome, email, senha, empresaId) {
+function cadastrarUsuarioInterno(nome, email, senha, acessoId, empresaId) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", nome, email, senha);
 
     var instrucaoSql = `
-        INSERT INTO Usuario (nome, email, senha, fk_empresa) VALUES (?, ?, ?, ?);
+        INSERT INTO Usuario (nome, email, senha, fk_tipo_acesso, fk_empresa) VALUES (?, ?, ?, ?, ?);
     `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql, [nome, email, senha, empresaId]);
+    return database.executar(instrucaoSql, [nome, email, senha, acessoId, empresaId]);
+}
+
+function listar(idEmpresa) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listarPorUsuario()");
+    var instrucaoSql = `
+       SELECT Usuario.nome, Usuario.email, TipoAcesso.tipo AS tipo_acesso 
+       FROM Usuario JOIN TipoAcesso 
+       ON Usuario.fk_tipo_acesso = TipoAcesso.id_tipo_acesso 
+       WHERE fk_empresa = ${idEmpresa}; 
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function deletar(nomeUsuario) {
+    var instrucaoSql = `
+        DELETE FROM Usuario WHERE nome = '${nomeUsuario}';
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
 }
 
 module.exports = {
     autenticar,
-    cadastrar
+    cadastrarUsuarioInterno,
+    listar,
+    deletar
 };

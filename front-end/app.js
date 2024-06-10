@@ -22,6 +22,7 @@ var servidoresRouter = require("./src/routes/servidores");
 var redefinirSenhaRouter = require("./src/routes/redefinirSenha");
 var parametrosAlerta = require("./src/routes/parametrosAlerta");
 var relatorios = require("./src/routes/relatorios");
+var acessos = require("./src/routes/acessos");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -36,6 +37,7 @@ app.use("/servidores", servidoresRouter);
 app.use("/redefinirSenha", redefinirSenhaRouter);
 app.use("/parametrosAlerta", parametrosAlerta);
 app.use("/relatorios", relatorios);
+app.use("/acessos", acessos);
 
 app.listen(PORTA_APP, function () {
     console.log(`

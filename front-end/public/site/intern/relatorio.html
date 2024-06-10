@@ -5,26 +5,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/relatorio.css">
+    <link rel="shortcut icon" href="./assets/iconNavegador.png" type="image/x-icon">
     <title>Relatorio</title>
 </head>
 
-<body>
+<body onload="listar();">
 
     <div class="sidebar">
         <div class="divImg">
 
-            <img id="imagemUser" src="./assets/logo_roxa.png" alt="">
+            <img id="imagemUser" src="./assets/logo_semNomepng.png" alt="">
         </div>
 
         <div class="NomeUsuario">Olá, <span id="nomeUser" class="NomeUsuario"></span></div>
 
         <ul>
-            <li><a class="button" href="./avisos.html"><img class="icone-menu" src="./assets/notification.png"
+            <li><a class="button" href="./avisos.html"><img class="icone-menu" src="./assets/sino-de-notificacao.png"
                         alt="">Avisos ‎ ‎ ‎ </a></li>
-            <li><a class="button" href="./painel.html"><img class="icone-menu" src="./assets/web-analysis.png" alt="">
+            <li><a class="button" href="./painel.html"><img class="icone-menu" src="./assets/painel.png" alt="">
                     Painel ‎ ‎ ‎</a></li>
-            <li><a class="buttonSelecionado"><img class="icone-menu" src="./assets/report.png" alt="">Relátorio</a></li>
-            <li><a class="button" href="./usuarios.html"><img class="icone-menu" src="./assets/group.png" alt="">
+            <li><a class="buttonSelecionado"><img class="icone-menu" src="./assets/relatorio-de-lucro.png" alt="">Relátorio</a></li>
+            <li><a class="button" href="./usuarios.html"><img class="icone-menu" src="./assets/silhueta-de-multiplos-usuarios.png" alt="">
                     Usuários </a></li>
             <br>
             <br>
@@ -64,9 +65,6 @@
                 <img src="./assets/list.png" alt="">
                 <h1>Resultado da Pesquisa</h1>
             </div>
-
-            <p id="erroBusca"></p>
-
         </div>
     </main>
 
@@ -92,8 +90,6 @@
             console.log("#ERRO: Nenhum servidor encontrado no sessionStorage");
         }
     }
-
-    listar();
 
     function formatarData(data) {
         let partes = data.split('-');
