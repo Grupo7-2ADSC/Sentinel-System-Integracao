@@ -1,29 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/avisos.css">
     <link rel="shortcut icon" href="./assets/iconNavegador.png" type="image/x-icon">
-    <title>Configuraçoes de alertas</title>
+    <title>Configurações de Alertas</title>
 </head>
-<body>
+
+<body onload="listarParametros()">
     <div class="sidebar">
         <div class="divImg">
-    
-            <img id="imagemUser" src="./assets/logo_roxa.png" alt="">
+
+            <img id="imagemUser" src="./assets/logo_semNomepng.png" alt="">
         </div>
-    
-        <div class="NomeUsuario">Olá, <span id="nomeUser" class="NomeUsuario">Marcio</span></div>
-    
+
+        <div class="NomeUsuario">Olá, <span id="nomeUser" class="NomeUsuario"></span></div>
+
         <ul>
-            <li><a class="buttonSelecionado" href="./avisos.html"><img class="icone-menu" src="./assets/notification.png"
-                        alt="">Avisos ‎ ‎ ‎ </a></li>
-            <li><a class="button" href="./painel.html"><img class="icone-menu"
-                        src="./assets/web-analysis.png" alt=""> Painel ‎ ‎ ‎</a></li>
-            <li><a class="button" href=""><img class="icone-menu" src="./assets/report.png" alt="">Relátorio</a></li>
-            <li><a class="button" href="./usuarios.html"><img class="icone-menu" src="./assets/group.png"
-                        alt="">Usuários</a></li>
+            <li><a class="buttonSelecionado" href="./avisos.html"><img class="icone-menu"
+                        src="./assets/sino-de-notificacao.png" alt="">Avisos ‎ ‎ ‎ </a></li>
+            <li><a class="button" href="./painel.html"><img class="icone-menu" src="./assets/painel.png" alt=""> Painel
+                    ‎ ‎ ‎</a></li>
+            <li><a class="button" href="./relatorio.html"><img class="icone-menu" src="./assets/relatorio-de-lucro.png"
+                        alt="">Relátorio</a></li>
+            <li><a class="button" href="./usuarios.html"><img class="icone-menu"
+                        src="./assets/silhueta-de-multiplos-usuarios.png" alt="">Usuários</a></li>
             <br>
             <br>
         </ul>
@@ -33,160 +36,254 @@
                         <path
                             d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z" />
                     </svg></span></button></div>
-    
+
     </div>
-    
+
     <main class="main-content">
         <div class="container-tituloConfig">
-         <h1 class="titulo">Configuração de Notificações</h1> 
-         <img src="./assets/infoPreta.png" alt="" class="imgInfo" onclick="infoBtn()">
+            <h1 class="titulo">Configuração de Alertas</h1>
         </div>
- 
-        <div class="container-conteudoParametro">
-         <div class="container-adcionarParametro">
-                 <div class="conteudo-adc">
-                     <div class="titulo-topo">
-                         <h1>Novo Parametro</h1>
-                     </div>
- 
-                     <div class="bloco-adiconar">
-                         <p>Hardware</p>
-                         <select id="hardware-select">
-                             <option value="">Selecione o componente</option>
-                             <option value="CPU">CPU</option>
-                             <option value="Memória">Memória</option>
-                             <option value="Disco Rígido">Disco Rígido</option>
-                         </select>
-                     </div>
- 
-                     <div class="bloco-adiconar">
-                         <p>Parâmetro Minimo</p>
-                         <input type="number" id="parametro-input" placeholder="60">
-                     </div>
 
-                     <div class="bloco-adiconar">
-                        <p>Parâmetro Maximo</p>
-                        <input type="number" id="parametroMax-input" placeholder="90">
+        <div class="container-conteudoParametro">
+            <div class="container-adcionarParametro">
+                <div class="conteudo-adc">
+                    <div class="titulo-topo">
+                        <h1>Novo Parametro</h1>
                     </div>
- 
-                     <div class="bloco-addBtn">
-                         <button onclick="atribuirParametro()">Atribuir</button>
-                     </div>
-                 </div>
-         </div>
- 
-         <div class="container-parametrosConfigurados">
-             <h1> Alertas configurados </h1>
-             <div class="table-container-parametros">
-                 <table class="parameters-table">
-                     <thead>
-                         <tr>
-                             <th>Hardware</th>
-                             <th>Parâmetro Minimo</th>
-                             <th> Parametro Maximo</th>
-                             <th>Ações</th>
-                         </tr>
-                     </thead>
-                     <tbody>
-                        <tr id="cpu-row">
-                            <td>CPU</td>
-                            <td id="cpu-param">50</td>
-                            <td id="cpu-param-max">90</td>
-                            <td>
-                                <button class="action-button delete" onclick="excluirParametro('cpu-param', 'cpu-param-max')"><img src="./assets/recycle.png" alt="Icone deletar parametro"></button>
-                            </td>
-                        </tr>
-                        <tr id="memoria-row">
-                            <td>Memória</td>
-                            <td id="memoria-param">60</td>
-                            <td id="memoria-param-max">80</td>
-                            <td>
-                                <button class="action-button delete" onclick="excluirParametro('memoria-param', 'memoria-param-max')"><img src="./assets/recycle.png" alt="Icone deletar parametro"></button>
-                            </td>
-                        </tr>
-                        <tr id="disco-row">
-                            <td>Disco Rígido</td>
-                            <td id="disco-param">50</td>
-                            <td id="disco-param-max">90</td>
-                            <td>
-                                <button class="action-button delete" onclick="excluirParametro('disco-param', 'disco-param-max')"><img src="./assets/recycle.png" alt="Icone deletar parametro"></button>
-                            </td>
-                        </tr>
-                    </tbody>
-                 </table>
-             </div>
- 
-             <div class="container-legendaParametros">
-                 <div class="conteudoLegenda">
-                     <h1>Configuração de parametros</h1>
-                     <h1>CPU: <span>Alertas para servidores com uso de CPU acima ou igual ao parametro definido</span></h1>
-                     <h1>Memoria: <span> Alertas para servidores com uso de Memoria acima ou igual ao parametro definido</span></h1>
-                     <h1>Disco: <span>Alertas para servidores com armazenamento em disco inferior ou igual ao parametro definido.</span></h1>
-                 </div>
-             </div>
-         </div>
+
+                    <div class="bloco-adiconar">
+                        <p>Hardware</p>
+                        <select id="listaHardware">
+                            <option value="0">Selecione o componente</option>
+                            <option value="1">CPU</option>
+                            <option value="2">Memória</option>
+                            <option value="3">Disco Rígido</option>
+                        </select>
+                    </div>
+
+                    <div class="bloco-adiconar">
+                        <p>Parâmetro Minimo</p>
+                        <input type="number" id="parametroMin_input" placeholder="60">
+                    </div>
+
+                    <div class="bloco-adiconar">
+                        <p>Parâmetro Maximo</p>
+                        <input type="number" id="parametroMax_input" placeholder="90">
+                    </div>
+
+                    <div class="bloco-addBtn">
+                        <button onclick="atribuirParametro()">Atribuir</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-parametrosConfigurados">
+                <h1> Alertas configurados </h1>
+                <div class="table-container-parametros">
+                    <table class="parameters-table">
+                        <!--<thead>
+                            <tr>
+                                <th>Hardware</th>
+                                <th>Parâmetro Minimo</th>
+                                <th> Parametro Maximo</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr id="cpu-row">
+                                <td>CPU</td>
+                                <td id="cpu-param">50</td>
+                                <td id="cpu-param-max">90</td>
+                                <td>
+                                    <button class="action-button delete"
+                                        onclick="excluirParametro('cpu-param', 'cpu-param-max')"><img
+                                            src="./assets/recycle.png" alt="Icone deletar parametro"></button>
+                                </td>
+                            </tr>
+                            <tr id="memoria-row">
+                                <td>Memória</td>
+                                <td id="memoria-param">60</td>
+                                <td id="memoria-param-max">80</td>
+                                <td>
+                                    <button class="action-button delete"
+                                        onclick="excluirParametro('memoria-param', 'memoria-param-max')"><img
+                                            src="./assets/recycle.png" alt="Icone deletar parametro"></button>
+                                </td>
+                            </tr>
+                            <tr id="disco-row">
+                                <td>Disco Rígido</td>
+                                <td id="disco-param">50</td>
+                                <td id="disco-param-max">90</td>
+                                <td>
+                                    <button class="action-button delete"
+                                        onclick="excluirParametro('disco-param', 'disco-param-max')"><img
+                                            src="./assets/recycle.png" alt="Icone deletar parametro"></button>
+                                </td>
+                            </tr>
+                        </tbody>-->
+                    </table>
+                </div>
+            </div>
         </div>
-     </main>
+        </div>
+    </main>
 </body>
+
 </html>
 <script>
-  function infoBtn() {
-    alert("As notificações são emitidas com parâmetros padrões do sistema para CPU, Memória e Disco até que seja configurado um novo parâmetro.");
-}
 
-function excluirParametro(paramId, paramIdMax) {
-    document.getElementById(paramId).innerText = '';
-    document.getElementById(paramIdMax).innerText = '';
-}
+    nomeUser.innerHTML = sessionStorage.NOME_USUARIO;
 
-function atribuirParametro() {
-    const hardwareSelect = document.getElementById('hardware-select');
-    const parametroMinInput = document.getElementById('parametro-input');
-    const parametroMaxInput = document.getElementById('parametroMax-input');
-    const hardware = hardwareSelect.value;
-    const parametroMin = parametroMinInput.value;
-    const parametroMax = parametroMaxInput.value;
+    function listarParametros() {
 
-    if (hardware === "" || parametroMin === "" || parametroMax === "") {
-        alert("Por favor, selecione um hardware e insira um parâmetro.");
-        return;
+        var empresaVar = sessionStorage.getItem('ID_EMPRESA');
+
+        fetch(`/parametrosAlerta/listar/${empresaVar}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+            if (resposta.ok) {
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                    const table = document.querySelector('.parameters-table');
+                    table.innerHTML = `
+                                 <thead>
+                                 <tr>
+                                     <th>Hardware</th>
+                                     <th>Parâmetro Minimo</th>
+                                     <th>Parametro Maximo</th>
+                                     <th>Ações</th>
+                                 </tr>
+                                 </thead>
+                                    `;
+
+                    const body = document.createElement('tbody');
+
+                    resposta.forEach((resposta, index) => {
+
+                        const row = document.createElement('tr');
+
+                        const componenteCell = document.createElement('td');
+
+                        const nomeCell = document.createElement('td');
+                        nomeCell.textContent = resposta.nome_componente;
+                        row.appendChild(nomeCell);
+
+                        const parametroMinCell = document.createElement('td');
+                        parametroMinCell.textContent = resposta.min;
+                        row.appendChild(parametroMinCell);
+
+                        const parametroMaxCell = document.createElement('td');
+                        parametroMaxCell.textContent = resposta.max;
+                        row.appendChild(parametroMaxCell);
+
+                        const acoesCell = document.createElement('td');
+
+                        const deleteButton = document.createElement('button');
+                        deleteButton.classList.add('del-btn', 'action-button', 'delete');
+                        deleteButton.innerHTML = `<img src="./assets/recycle.png" alt="">`;
+
+                        acoesCell.appendChild(deleteButton);
+                        row.appendChild(acoesCell);
+
+                        body.appendChild(row);
+                        table.appendChild(body);
+                    })
+                });
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+        });
     }
 
-    if (parametroMax < parametroMin) {
-        alert("O parâmetro máximo não pode ser menor que o parâmetro mínimo.");
-        return;
-    }
+    function atribuirParametro() {
+        var idHardware = listaHardware.value;
+        var parametroMinVar = parametroMin_input.value;
+        var parametroMaxVar = parametroMax_input.value;
+        var empresaVar = sessionStorage.getItem('ID_EMPRESA');
 
-    let paramId;
-    let paramIdMax;
-    switch (hardware) {
-        case "CPU":
-            paramId = "cpu-param";
-            paramIdMax = "cpu-param-max";
-            break;
-        case "Memória":
-            paramId = "memoria-param";
-            paramIdMax = "memoria-param-max";
-            break;
-        case "Disco Rígido":
-            paramId = "disco-param";
-            paramIdMax = "disco-param-max";
-            break;
-        default:
-            alert("Hardware inválido.");
+
+        if (idHardware === "0" || parametroMinVar === "" || parametroMaxVar === "") {
+            alert("Por favor, selecione um hardware e insira um parâmetro.");
             return;
+        }
+
+        if (parametroMaxVar < parametroMinVar) {
+            alert("O parâmetro máximo não pode ser menor que o parâmetro mínimo.");
+            return;
+        }
+
+        // Verificar se o parâmetro já existe no banco de dados
+        fetch(`/parametrosAlerta/verificarParametro/${idHardware}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                empresaServer: empresaVar
+            }),
+        })
+            .then(function (resposta) {
+                return resposta.json();
+            })
+            .then(function (dados) {
+                if (dados.existe) {
+                    // Se o parâmetro existe, atualize-o
+                    fetch(`/parametrosAlerta/atualizarParametro/${idHardware}`, {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            parametroMinServer: parametroMinVar,
+                            parametroMaxServer: parametroMaxVar,
+                            empresaServer: empresaVar
+                        }),
+                    })
+                        .then(function (resposta) {
+                            if (resposta.ok) {
+                                alert("Parâmetro atualizado com sucesso!");
+                                setTimeout(function () {
+                                    window.location.href = './confirgurarAlertas.html';
+                                }, 1000);
+
+                            } else {
+                                alert("Erro ao atualizar parâmetro.");
+                            }
+                        });
+                } else {
+                    // Se o parâmetro não existe, insira-o
+                    fetch(`/parametrosAlerta/cadastrarParametro/${idHardware}`, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            parametroMinServer: parametroMinVar,
+                            parametroMaxServer: parametroMaxVar,
+                            empresaServer: empresaVar
+                        }),
+                    })
+                        .then(function (resposta) {
+                            if (resposta.ok) {
+                                setTimeout(function () {
+                                    window.location.href = './confirgurarAlertas.html';
+                                }, 1000);
+                            } else {
+                                alert("Erro ao cadastrar parâmetro.");
+                            }
+                        });
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
     }
-
-    document.getElementById(paramId).innerText = parametroMin;
-    document.getElementById(paramIdMax).innerText = parametroMax;
-
-    limparCampos();
-}
-
-function limparCampos() {
-    document.getElementById('hardware-select').value = "";
-    document.getElementById('parametro-input').value = "";
-    document.getElementById('parametroMax-input').value = "";
-}
 
 </script>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,22 +8,27 @@
     <link rel="shortcut icon" href="./assets/iconNavegador.png" type="image/x-icon">
     <title>Avisos</title>
 </head>
-<body>
-    
+
+<body onload="listar();">
+
     <div class="sidebar">
         <div class="divImg">
-    
-            <img id="imagemUser" src="./assets/logo_roxa.png" alt="">
+
+            <img id="imagemUser" src="./assets/logo_semNomepng.png" alt="">
         </div>
-    
-        <div class="NomeUsuario">Olá, <span id="nomeUser" class="NomeUsuario">Marcio</span></div>
-    
+
+        <div class="NomeUsuario">Olá, <span id="nomeUser" class="NomeUsuario"></span></div>
+
         <ul>
-            <li><a class="buttonSelecionado"><img class="icone-menu" src="./assets/notification.png" alt="">Avisos ‎ ‎ ‎ </a></li>
-            <li><a class="button" href="./painel.html"><img class="icone-menu" src="./assets/web-analysis.png" alt=""> Painel ‎ ‎ ‎</a></li>
-            <li><a class="button" href="./relatorio.html"><img class="icone-menu" src="./assets/report.png" alt="">Relátorio</a></li>
-            <li><a class="button" href="./usuarios.html"><img class="icone-menu" src="./assets/group.png"
-                        alt="">Usuários</a></li>
+            <li><a class="buttonSelecionado"><img class="icone-menu" src="./assets/sino-de-notificacao.png"
+                        alt="">Avisos ‎ ‎ ‎
+                </a></li>
+            <li><a class="button" href="./painel.html"><img class="icone-menu" src="./assets/painel.png" alt="">
+                    Painel ‎ ‎ ‎</a></li>
+            <li><a class="button" href="./relatorio.html"><img class="icone-menu" src="./assets/relatorio-de-lucro.png"
+                        alt="">Relátorio</a></li>
+            <li><a class="button" href="./usuarios.html"><img class="icone-menu"
+                        src="./assets/silhueta-de-multiplos-usuarios.png" alt="">Usuários</a></li>
             <br>
             <br>
         </ul>
@@ -32,14 +38,14 @@
                         <path
                             d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z" />
                     </svg></span></button></div>
-    
+
     </div>
-    
+
     <main class="main-content">
-        <h1 class="titulo">Avisos | Alertas Recebidos   </h1>
+        <h1 class="titulo">Avisos | Alertas Recebidos </h1>
         <div class="seletor-servidor">
-            <select name="Seletor servidor" id="seletor_servidor">
-                <option value="">Servidor de Teste</option>
+            <select name="servidores" id="listaServidores">
+                <option selected>Selecione um servidor</option>
             </select>
 
             <button><img src="./assets/settings.png" alt="Configuraçoes" onclick="openConfig()"></button>
@@ -49,43 +55,180 @@
             <div class="seletor-data">
                 <div class="campo-dataIN-END"><span>De: </span><input type="date" id="dataInicio"></div>
                 <div class="campo-dataIN-END"><span>Até:</span> <input type="date" id="dataFim"></div>
-          
+
+                <div class="div-buttonVerificarHistorico">
+                    <button id="verificarHistoricoButton" onclick="verificarHistorico()">Consultar</button>
+                </div>
             </div>
             <table class="notification-table">
-                <thead>
-                    <tr>
-                        <th>ID da Máquina</th>
-                        <th>Componente</th>
-                        <th>Alerta</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>001</td>
-                        <td>CPU</td>
-                        <td>Alta temperatura</td>
-                    </tr>
-                    <tr>
-                        <td>002</td>
-                        <td>Memória</td>
-                        <td>Baixa memória</td>
-                    </tr>
-                    <tr>
-                        <td>003</td>
-                        <td>Disco Rígido</td>
-                        <td>Espaço insuficiente</td>
-                    </tr>
-                    <!-- Adicione mais linhas conforme necessário -->
-                </tbody>
             </table>
         </div>
-    
-    
+
+
     </main>
 </body>
+
 </html>
 <script>
-    function openConfig(){
+
+    nomeUser.innerHTML = sessionStorage.NOME_USUARIO;
+
+
+    function listar() {
+
+        let servidoresJson = sessionStorage.getItem('SERVIDORES');
+
+        if (servidoresJson) {
+            let servidores = JSON.parse(servidoresJson);
+
+            servidores.forEach((servidor) => {
+                document.getElementById('listaServidores').innerHTML += `<option value='${servidor.id_servidor}'>${servidor.nome}</option>`;
+            });
+        } else {
+            console.log("#ERRO: Nenhum servidor encontrado no sessionStorage");
+        }
+    }
+
+    function formatarData(data) {
+        let partes = data.split('-');
+
+        // Se o formato for 'YYYY-MM-DD'
+        let ano = partes[0];
+        let mes = partes[1];
+        let dia = partes[2];
+
+        return `${ano}-${mes}-${dia}`;
+    }
+
+    function verificarHistorico() {
+
+        const table = document.querySelector('.notification-table');
+        table.innerHTML = '';
+
+        var idServidor = listaServidores.value;
+
+        var dataInicioVar = formatarData(dataInicio.value);
+        var dataFimVar = formatarData(dataFim.value);
+
+        fetch(`/relatorios/buscarHistorico/${idServidor}?dataInicio=${dataInicioVar}&dataFim=${dataFimVar}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    const tableContainer = document.querySelector('.table-container');
+                    tableContainer.innerHTML += "<div id='noResultsMsg'>Nenhum resultado encontrado</div>";
+                } else {
+                    // Se houver resultados, remover a mensagem
+                    const noResultsMsg = document.getElementById('noResultsMsg');
+                    if (noResultsMsg) {
+                        noResultsMsg.remove();
+                    }
+
+                    resposta.json().then(function (resposta) {
+                        console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                        const table = document.querySelector('.notification-table');
+                        table.innerHTML = `
+                                    <thead>
+                                       <tr>
+                                          <th>Componente</th>
+                                          <th>Registro</th>
+                                          <th>Data e Hora</th>
+                                      </tr>
+                                    </thead>
+                                    `;
+
+
+                        resposta.forEach((resposta, index) => {
+                            const body = document.createElement('tbody');
+
+                            const row = document.createElement('tr');
+
+                            const componenteCell = document.createElement('td');
+
+                            if (resposta.tipo_componente == "MEMORIA" || resposta.nome_componente == null) {
+                                resposta.nome_componente = "MEMORIA RAM";
+
+                            } else if (resposta.tipo_componente == "CPU") {
+                                resposta.nome_componente = "CPU";
+                            } else if (resposta.tipo_componente == "DISCO") {
+                                resposta.nome_componente = "DISCO: " + resposta.nome_componente;
+                            }
+
+                            componenteCell.textContent = resposta.nome_componente;
+                            row.appendChild(componenteCell);
+
+                            const registroCell = document.createElement('td');
+                            registroCell.textContent = resposta.registro;
+                            row.appendChild(registroCell);
+
+                            const dataCell = document.createElement('td');
+                            dataCell.textContent = resposta.data_alerta;
+                            row.appendChild(dataCell);
+
+                            body.appendChild(row);
+                            table.appendChild(body);
+
+
+                        });
+
+                    });
+
+                }
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+        });
+
+    }
+
+
+    function openConfig() {
         window.location.href = "./confirgurarAlertas.html";
     }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const dataInicio = document.getElementById('dataInicio');
+        const dataFim = document.getElementById('dataFim');
+        const verificarHistoricoButton = document.getElementById('verificarHistoricoButton');
+
+        // Função para obter a data de hoje no formato YYYY-MM-DD
+        function getTodayDate() {
+            const today = new Date();
+            const yyyy = today.getFullYear();
+            const mm = String(today.getMonth() + 1).padStart(2, '0'); // Janeiro é 0!
+            const dd = String(today.getDate()).padStart(2, '0');
+            return `${yyyy}-${mm}-${dd}`;
+        }
+
+        // Definir o valor máximo do campo dataFim para a data de hoje
+        dataFim.max = getTodayDate();
+
+        function validateDates() {
+            const startDate = new Date(dataInicio.value);
+            const endDate = new Date(dataFim.value);
+
+            if (startDate > endDate) {
+                alert('A data de início não pode ser posterior à data de fim.');
+                return false;
+            }
+            return true;
+        }
+
+        verificarHistoricoButton.addEventListener('click', function (event) {
+            if (!validateDates()) {
+                event.preventDefault();
+            }
+        });
+
+        dataInicio.addEventListener('change', validateDates);
+        dataFim.addEventListener('change', validateDates);
+    });
+
 </script>

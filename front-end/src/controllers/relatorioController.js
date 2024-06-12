@@ -29,6 +29,34 @@ function buscarDados(req, res) {
         );
 }
 
+function buscarHistorico(req, res) {
+    var idServidor = req.params.idServidor;
+    var dataInicio = req.query.dataInicio;
+    var dataFim = req.query.dataFim;
+
+    relatorioModel.buscarHistorico(idServidor, dataInicio, dataFim)
+        .then(
+            function (resultado) {
+                if (resultado.length > 0) {
+                    res.status(200).json(resultado);
+                } else {
+                    res.status(204).send("Nenhum resultado encontrado!");
+                }
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "Houve um erro ao consultar o historico: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
 module.exports = {
-    buscarDados
+    buscarDados,
+    buscarHistorico
 }

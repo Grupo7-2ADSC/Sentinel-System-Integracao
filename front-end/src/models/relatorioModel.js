@@ -54,6 +54,30 @@ function buscarDados(idServidor, dataInicio, dataFim, parametro_max_cpu, paramet
     return database.executar(instrucaoSql);
 }
 
+function buscarHistorico(idServidor, dataInicio, dataFim) {
+    console.log("ACESSEI O RELATORIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listarPorUsuario()", idServidor, dataInicio, dataFim);
+    var instrucaoSql = `
+        SELECT
+         c.nome AS nome_componente,
+         tc.tipo AS tipo_componente,
+         a.registro,
+          DATE_FORMAT(a.data_registro, '%d/%m/%Y %H:00') AS data_alerta
+          FROM 
+         Alerta a
+        INNER JOIN Componente c ON a.fk_componente = c.id_componente
+        INNER JOIN Servidor s ON c.fk_servidor = s.id_servidor
+        INNER JOIN TipoComponente tc ON c.fk_tipo_componente = tc.id_tipo_componente
+        WHERE
+        s.id_servidor = ${idServidor}
+        AND DATE(a.data_registro) BETWEEN '${dataInicio}' AND '${dataFim}'
+        ORDER BY
+        a.data_registro DESC;
+                       `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
-    buscarDados
+    buscarDados,
+    buscarHistorico
 }

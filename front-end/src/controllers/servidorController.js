@@ -1,9 +1,9 @@
 var servidorModel = require("../models/servidorModel");
 
 function buscarServidoresPorEmpresa(req, res) {
-  var idUsuario = req.params.idUsuario;
+  var empresaId = req.params.empresaId;
 
-  servidorModel.buscarServidoresPorEmpresa(idUsuario).then((resultado) => {
+  servidorModel.buscarServidoresPorEmpresa(empresaId).then((resultado) => {
     if (resultado.length > 0) {
       res.status(200).json(resultado);
     } else {

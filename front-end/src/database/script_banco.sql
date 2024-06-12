@@ -85,9 +85,9 @@ CONSTRAINT fk_servidor_componente FOREIGN KEY (fk_servidor)
 
 -- HISTÓRICO DE ALERTAS
 CREATE TABLE Alerta (
-id_alerta INT PRIMARY KEY NOT NULL,
+id_alerta INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
 registro DECIMAL(10,2) NOT NULL,
-data_registro DATETIME NOT NULL,
+data_registro DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
 fk_componente INT NOT NULL,
 CONSTRAINT fk_componente_alerta FOREIGN KEY (fk_componente)
 	REFERENCES Componente (id_componente) ON DELETE CASCADE
@@ -157,10 +157,10 @@ INSERT INTO Empresa (cnpj, nome) VALUES
 	("123456789123456", "Sentinel System Solutions"),
 	("789012345678912", "DHL");
 
-INSERT INTO ConfiguracaoAlerta (parametro_min, parametro_max, fk_tipo_componente, fk_empresa) VALUES
+/*INSERT INTO ConfiguracaoAlerta (parametro_min, parametro_max, fk_tipo_componente, fk_empresa) VALUES
 	(60.0, 80.0, 1, 2),
     (40.0, 70.0, 2, 2),
-    (150.0, 100.0, 3, 2);
+    (100.0, 150.0, 3, 2);*/
     
 INSERT INTO Usuario (nome, email, senha, fk_tipo_acesso, fk_empresa) VALUES
 	("Emmily", "emmilyferreira@gmail.com", 6122829, 1, 1),
@@ -172,18 +172,24 @@ INSERT INTO Servidor (nome, host_name, fk_empresa) VALUES
     ("Servidor de Email", "XPTU-76PDU", 2);
 
 INSERT INTO Componente (nome, total_gib, fk_tipo_componente, fk_servidor) VALUES
-	("CPU Servidor 1", null, 1, 1),
+	("Intel(R) Celeron(R) 6305 @ 1.80GHz", null, 1, 1),
     (null, 7.0 , 2, 1),
-    ("Disco C (0)", 223.0, 3, 1),
+    ("/", 223.0, 3, 1),
 	("Disco E (1)", 200.0, 3, 1),
     ("Disco F (2)", 150.0, 3, 1);
 
 INSERT INTO Registro (uso, fk_componente) VALUES
-	(70.0, 1),
-    (60.0, 2),
+	(90.0, 1),
+    (80.0, 2),
     (90.0, 3),
-	(100.0, 4),
+	(105.0, 4),
     (85.0, 5);
+    
+insert into alerta (registro, fk_componente) values 
+    (90.00, 1),
+    (80.00, 2),
+    (60.00, 3);
+           
     
 -- SELECTS
 
@@ -199,4 +205,5 @@ SELECT * FROM ProcessoRegistro;
 SELECT * FROM RedeRegistro;
 SELECT * FROM Componente;
 SELECT * FROM Registro;
+
 
